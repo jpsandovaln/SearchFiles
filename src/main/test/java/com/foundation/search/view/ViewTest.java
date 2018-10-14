@@ -10,10 +10,10 @@
  * with Jalasoft.
  */
 
-package com.foundation.search;
+package java.com.foundation.search.view;
 
-public class Main {
-    public static void main(String [] args) {
-        System.out.println("This is the main class");
-    }
+/**
+ * Created by Mary Ricalde on 10/14/2018.
+ */
+public class ViewTest {
 }

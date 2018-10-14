@@ -10,10 +10,7 @@
  * with Jalasoft.
  */
 
-package com.foundation.search;
+package java.com.foundation.search.model;
 
-public class Main {
-    public static void main(String [] args) {
-        System.out.println("This is the main class");
-    }
+public class ModelTest {
 }
