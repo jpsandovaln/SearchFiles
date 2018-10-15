@@ -12,7 +12,25 @@
 
 package com.foundation.search.controller;
 
+import com.foundation.search.view.View;
+import com.foundation.search.model.Search;
+
+import java.awt.event.ActionEvent;
+
 public class Controller {
+    private View view;
+    private Search search;
+
     public Controller() {
+        this.view = new View();
+        this.search = new Search();
+    }
+
+    public void getBasicFields() {
+
+    }
+
+    public void findEvent(ActionEvent buttonEvent) {
+
     }
 }
