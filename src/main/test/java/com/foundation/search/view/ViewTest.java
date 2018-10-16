@@ -10,10 +10,10 @@
  * with Jalasoft.
  */
 
-package com.foundation.search.view;
+package java.com.foundation.search.view;
 
-public class View {
-    public View() {
-
-    }
+/**
+ * Created by Mary Ricalde on 10/14/2018.
+ */
+public class ViewTest {
 }
