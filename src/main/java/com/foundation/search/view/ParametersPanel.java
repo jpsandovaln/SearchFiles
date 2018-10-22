@@ -13,7 +13,12 @@
 
 package com.foundation.search.view;
 
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.JLabel;
+import javax.swing.JTextField;
+import javax.swing.JButton;
+import javax.swing.JSeparator;
+import javax.swing.BoxLayout;
 import java.awt.*;
 
 /**

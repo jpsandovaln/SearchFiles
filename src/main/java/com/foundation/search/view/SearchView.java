@@ -11,7 +11,7 @@
  */
 
 package com.foundation.search.view;
-import javax.swing.*;
+import javax.swing.JFrame;
 
 /**
  * This class is the main class to communicate with the controller.
@@ -61,14 +61,7 @@ public class SearchView extends JFrame{
      *
      * @return parameters
      */
-    public JPanel getMainPanel(){
+    public MainPanel getMainPanel(){
         return mainPanel;
     }
-
-    public static void main(String[] args) {
-        SearchView view = new SearchView();
-        view.init();
-
-    }
-
 }

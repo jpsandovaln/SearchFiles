@@ -13,7 +13,8 @@
 
 package com.foundation.search.view;
 
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.BoxLayout;
 
 /**
  * This class contains the parameters panel and results panel
@@ -65,7 +66,7 @@ public class MainPanel extends JPanel {
      *
      * @return parameters
      */
-    public JPanel getParametersPanel(){
+    public ParametersPanel getParametersPanel(){
         return parameters;
     }
 
@@ -75,7 +76,7 @@ public class MainPanel extends JPanel {
      *
      * @return result
      */
-    public JPanel getResultsPanel(){
+    public ResultsPanel getResultsPanel(){
         return result;
     }
 }
