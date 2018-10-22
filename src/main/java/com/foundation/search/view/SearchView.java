@@ -11,81 +11,64 @@
  */
 
 package com.foundation.search.view;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JTextField;
-import javax.swing.JOptionPane;
+import javax.swing.*;
 
 /**
- * Class SearchView that will receive the data to search and will have communication with the controller
+ * This class is the main class to communicate with the controller.
+ * It contains the MainPanel and the settings of the Search window
  *
  * @author Emely LLanos
  * @version 1.0.
  */
+public class SearchView extends JFrame{
 
-public class SearchView extends JFrame implements ActionListener{
+    private MainPanel mainPanel;
 
-    private JLabel nameLabel;
-    private JTextField nameInput;
-    private JLabel pathLabel;
-    private JTextField pathInput;
-    private JButton findButton;
-
+    /**
+     * The constructor of ResultsPanel class where the components are set
+     * by invoking the setting() and init() method
+     */
     public SearchView() {
         super();
-        configureWindow();
-        initializeComponents();
+        setting();
+        init();
     }
 
-    private void configureWindow() {
+    /**
+     * setting method will set the properties of the Search Window
+     */
+    private void setting() {
+        mainPanel = new MainPanel();
         this.setTitle("Search Files ");
-        this.setSize(510, 410);
+        this.setSize(700, 400);
         this.setLocationRelativeTo(null);
-        this.setLayout(null);
-        this.setResizable(false);
+        this.setResizable(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
-    private void initializeComponents() {
-        // creating the components
-        nameLabel = new JLabel();
-        nameInput = new JTextField();
-        pathLabel = new JLabel();
-        pathInput = new JTextField();
-        findButton = new JButton();
-        // configuring the components
-        nameLabel.setText("Please input the name of the file to search");
-        nameLabel.setBounds(50, 40, 300, 25);
-        nameInput.setBounds(380, 40, 100, 25);
-        pathLabel.setText("Please input the path where you want to search");
-        pathLabel.setBounds(50, 70, 300, 25);
-        pathInput.setBounds(380, 70, 100, 25);
+    /**
+     * init method adds the mainPanel and makes it visible
+     */
+    private void init() {
 
-        findButton.setText("Search");
-        findButton.setBounds(150, 120, 200, 30);
-        findButton.addActionListener(this);
-        // adding the components to the window
-        this.add(nameLabel);
-        this.add(nameInput);
-        this.add(pathLabel);
-        this.add(pathInput);
-        this.add(findButton);
+        this.add(mainPanel);
+        this.setVisible(true);
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        String name = nameInput.getText();
-        String path = pathInput.getText();
-        JOptionPane.showMessageDialog(this, "I will search the file:  '"
-                + name + "' in the following path: " + path);
+    /**
+     * This method returns the mainPanel that this frame contains
+     * in order to use it's available methods
+     *
+     * @return parameters
+     */
+    public JPanel getMainPanel(){
+        return mainPanel;
     }
 
     public static void main(String[] args) {
         SearchView view = new SearchView();
-        view.setVisible(true);
+        view.init();
+
     }
+
 }
