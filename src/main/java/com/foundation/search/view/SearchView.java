@@ -50,7 +50,6 @@ public class SearchView extends JFrame{
      * init method adds the mainPanel and makes it visible
      */
     private void init() {
-
         this.add(mainPanel);
         this.setVisible(true);
     }

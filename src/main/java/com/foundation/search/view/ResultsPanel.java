@@ -71,7 +71,7 @@ public class ResultsPanel extends JPanel {
     /**
      * This method allows to add a new row with data to the table
      *
-     * @param insertRowData         array of objects to add in the table
+     * @param insertRowData array of objects to add in the table
      */
     public void setNewRowResult(Object [] insertRowData){
         defTableModel.insertRow(2,insertRowData);
@@ -80,7 +80,7 @@ public class ResultsPanel extends JPanel {
     /**
      * This method cleans the table, removing all existent rows
      *
-     * @return True             If the table was clean
+     * @return True If the table was clean
      */
     public boolean cleanTable(){
         defTableModel.getDataVector().removeAllElements();
