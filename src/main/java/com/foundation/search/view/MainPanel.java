@@ -13,72 +13,70 @@
 
 package com.foundation.search.view;
 
-import javax.swing.*;
+import javax.swing.JPanel;
+import javax.swing.BoxLayout;
+
+/**
+ * This class contains the parameters panel and results panel
+ *
+ * @author Emely LLanos
+ * @version 1.0.
+ */
 
 public class MainPanel extends JPanel {
 
-    private JLabel text;
-    private JLabel nameLabel;
-    private JTextField nameInput;
-    private JLabel pathLabel;
-    private JTextField pathInput;
-    private JButton findButton;
+    private ParametersPanel parameters;
+    private ResultsPanel result;
 
-    public MainPanel() {
+    /**
+     * The constructor of ResultsPanel class where the components are set
+     * by invoking the setting() and init() method
+     */
+    protected MainPanel() {
         super();
-        configureWindow();
-        initializeComponents();
+        setting();
+        init();
     }
 
-    private void configureWindow() {
-        this.setSize(510, 410);
-        this.setLayout(null);
+    /**
+     * setting method sets the properties of this Panel.
+     */
+    private void setting() {
+        //to define
     }
 
-    private void initializeComponents() {
-        // creating the components
-        text = new JLabel();
-        nameLabel = new JLabel();
-        nameInput = new JTextField();
-        pathLabel = new JLabel();
-        pathInput = new JTextField();
-        findButton = new JButton();
-
-        // configuring the components
-        text.setText("Please provide the information to help you to search the files you need");
-        text.setBounds(50, 40, 400, 25);
-        nameLabel.setText("Name: ");
-        nameLabel.setBounds(50, 70, 50, 25);
-        nameInput.setBounds(150, 70, 100, 25);
-        pathLabel.setText("Path: ");
-        pathLabel.setBounds(50, 100, 50, 25);
-        pathInput.setBounds(150, 100, 100, 25);
-        findButton.setText("Search");
-        findButton.setBounds(150, 150, 200, 30);
-
-        // adding the components to the window
-        this.add(text);
-        this.add(nameLabel);
-        this.add(nameInput);
-        this.add(pathLabel);
-        this.add(pathInput);
-        this.add(findButton);
+    /**
+     * init method adds the two panels: ParametersPanel and ResultsPanel
+     * to the main panel
+     */
+    private void init() {
+        //Setting up BoxLayout
+        setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+        //adding panel to receive the parameters for the search
+        parameters = new ParametersPanel();
+        add(parameters);
+        //adding the panel to show the list of files and folders found
+        ResultsPanel result = new ResultsPanel();
+        add(result);
     }
 
-    public JButton getSearchButton(){
-        return findButton;
+    /**
+     * This method returns the parametersPanel that this panel contains
+     * in order to use it's available methods
+     *
+     * @return parameters
+     */
+    public ParametersPanel getParametersPanel(){
+        return parameters;
     }
 
-    /*@Override
-    public void actionPerformed(ActionEvent e) {
-        String name = nameInput.getText();
-        String path = pathInput.getText();
-        JOptionPane.showMessageDialog(this, "I will search the file:  '"
-                + name + "' in the following path: " + path);
+    /**
+     * This method returns the resultsPanel that this panel contains
+     * in order to use it's available methods
+     *
+     * @return result
+     */
+    public ResultsPanel getResultsPanel(){
+        return result;
     }
-
-    public static void main(String[] args) {
-        MainPanel panel = new MainPanel();
-        panel.setVisible(true);
-    }*/
 }
