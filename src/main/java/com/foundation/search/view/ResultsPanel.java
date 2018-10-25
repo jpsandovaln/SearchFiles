@@ -35,7 +35,7 @@ public class ResultsPanel extends JPanel {
     //setting the names of columns and temporal data to the table
     //this data should be cleaned by the controller
     String[] columnNames = {"Name","Path","Extension", "Size"};
-    Object[][] data = {{1,1,1,1},{2,2,2,2},{3,3,3,3},{4,4,4,4}};
+    Object[][] data = null;
 
     /**
      * The constructor of ResultsPanel class where the components are set
@@ -74,7 +74,7 @@ public class ResultsPanel extends JPanel {
      * @param insertRowData array of objects to add in the table
      */
     public void setNewRowResult(Object [] insertRowData){
-        defTableModel.insertRow(2,insertRowData);
+        defTableModel.addRow(insertRowData);
     }
 
     /**

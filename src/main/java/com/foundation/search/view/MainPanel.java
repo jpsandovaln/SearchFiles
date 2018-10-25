@@ -56,7 +56,7 @@ public class MainPanel extends JPanel {
         parameters = new ParametersPanel();
         add(parameters);
         //adding the panel to show the list of files and folders found
-        ResultsPanel result = new ResultsPanel();
+        result = new ResultsPanel();
         add(result);
     }
 
