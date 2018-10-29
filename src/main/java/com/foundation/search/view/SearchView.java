@@ -40,7 +40,7 @@ public class SearchView extends JFrame{
     private void setting() {
         mainPanel = new MainPanel();
         this.setTitle("Search Files ");
-        this.setSize(700, 400);
+        this.setSize(1100, 600);
         this.setLocationRelativeTo(null);
         this.setResizable(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
