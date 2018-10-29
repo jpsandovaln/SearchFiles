@@ -63,11 +63,11 @@ public class ParametersPanel extends JPanel implements ItemListener {
     private JButton findButton;
     private JButton cleanButton;
     private JCheckBox hidden;
-    private JCheckBox read_only;
-    private JCheckBox only_files;
+    private JCheckBox readOnly;
+    private JCheckBox onlyFiles;
     private boolean hiddenCH = false;
-    private boolean read_onlyCH = false;
-    private boolean only_filesCH = false;
+    private boolean readOnlyCh = false;
+    private boolean onlyFilesCh = false;
 
     /**
      * The constructor of ResultsPanel class where the components are set
@@ -129,16 +129,16 @@ public class ParametersPanel extends JPanel implements ItemListener {
         hidden = new JCheckBox("Include Hidden Files");
         hidden.setMnemonic(KeyEvent.VK_D);
         hidden.setSelected(false);
-        read_only = new JCheckBox("Include Read-Only Files");
-        read_only.setMnemonic(KeyEvent.VK_D);
-        read_only.setSelected(false);
-        only_files = new JCheckBox("Include Files Only");
-        only_files.setMnemonic(KeyEvent.VK_D);
-        only_files.setSelected(false);
+        readOnly = new JCheckBox("Include Read-Only Files");
+        readOnly.setMnemonic(KeyEvent.VK_D);
+        readOnly.setSelected(false);
+        onlyFiles = new JCheckBox("Include Files Only");
+        onlyFiles.setMnemonic(KeyEvent.VK_D);
+        onlyFiles.setSelected(false);
         //Registering a listener for the checkBoxes
         hidden.addItemListener(this);
-        read_only.addItemListener(this);
-        only_files.addItemListener(this);
+        readOnly.addItemListener(this);
+        onlyFiles.addItemListener(this);
         //creating the layout that will contain every sub-panel
         setLayout(new BorderLayout());
         //Creating instructions panel
@@ -258,13 +258,13 @@ public class ParametersPanel extends JPanel implements ItemListener {
         c.gridwidth = 2;
         c.gridx = 2;
         c.gridy = 4;
-        centerPanel.add(read_only, c);
+        centerPanel.add(readOnly, c);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.ipady = 22;
         c.gridwidth = 2;
         c.gridx = 4;
         c.gridy = 4;
-        centerPanel.add(only_files, c);
+        centerPanel.add(onlyFiles, c);
        //main division
         JButton button;
         c.fill = GridBagConstraints.HORIZONTAL;
@@ -322,7 +322,7 @@ public class ParametersPanel extends JPanel implements ItemListener {
      *
      * @return pathInput
      */
-     public String getPath(){
+    public String getPath(){
         return pathInputLabel.getText();
     }
 
@@ -350,7 +350,7 @@ public class ParametersPanel extends JPanel implements ItemListener {
      * @return sizeData
      */
     public String[] getSizeInput(){
-        sizeData = new String[2];
+        sizeData = new String[3];
         sizeData[0] = sizeComparison.getSelectedItem().toString();
         sizeData[1] = sizeInput.getText();
         sizeData[2] = sizeUnit.getSelectedItem().toString();
@@ -358,8 +358,8 @@ public class ParametersPanel extends JPanel implements ItemListener {
     }
 
     /**
-     * This method listens the actions in the checkboxes. overwrites the method
-     * existent in the ITemListener interface
+     * This method listens the performed actions on the checkboxes; it overwrites the existing
+     * method in the ItemListener interface
      *
      * @param ItemEvent it is the event
      */
@@ -368,27 +368,20 @@ public class ParametersPanel extends JPanel implements ItemListener {
         Object source = e.getItemSelectable();
 
         if (source == hidden) {
-            System.out.println("hidden is true");
             hiddenCH = true;
-        } else if (source == read_only) {
-            System.out.println("read only is true");
-            read_onlyCH = true;
-        } else if (source == only_files) {
-            System.out.println("only files is true");
-            only_filesCH = true;
+        } else if (source == readOnly) {
+            readOnlyCh = true;
+        } else if (source == onlyFiles) {
+            onlyFilesCh = true;
         }
 
         if (e.getStateChange() == ItemEvent.DESELECTED){
-            System.out.println("itemevent is deselected");
             if (source == hidden) {
-                System.out.println("hidden is false again");
                 hiddenCH = false;
-            } else if (source == read_only) {
-                System.out.println("read only is false again");
-                read_onlyCH = false;
-            } else if (source == only_files) {
-                System.out.println("only files is false again");
-                only_filesCH = false;
+            } else if (source == readOnly) {
+                readOnlyCh = false;
+            } else if (source == onlyFiles) {
+                onlyFilesCh = false;
             }
         }
     }
@@ -396,28 +389,27 @@ public class ParametersPanel extends JPanel implements ItemListener {
     /**
      * This method returns the value of Hidden checkbox
      *
-     * return boolean hiddenCH
+     * @return boolean hiddenCH
      */
     public boolean getHidden(){
         return hiddenCH;
     }
 
     /**
-     * This method returns the value of Hidden checkbox
+     * This method returns the value of read_only checkbox
      *
-     * return boolean hiddenCH
+     * @return boolean read_onlyCH
      */
     public boolean getReadOnly(){
-        return read_onlyCH;
+        return readOnlyCh;
     }
 
     /**
-     * This method returns the value of Hidden checkbox
+     * This method returns the value of only_files checkbox
      *
-     * return boolean hiddenCH
+     * @return boolean only_filesCH
      */
     public boolean getOnlyFiles(){
-        return only_filesCH;
+        return onlyFilesCh;
     }
-
 }
