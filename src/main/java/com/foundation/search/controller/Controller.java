@@ -45,9 +45,9 @@ public class Controller {
      * This set the list of files results to the table result
      */
     public void getSearchCriteria() {
-        Criteria searchCriteria = new Criteria("C:/");
-        // boolean variable that will control if the fields are valid for to do
-        // the searching criteria
+        Criteria searchCriteria = new Criteria();
+        // boolean variable that will control if the fields are valid to do the
+        // searching criteria
         boolean validFields = false;
         String path = view.getMainPanel().getParametersPanel().getPath();
         String fileName = view.getMainPanel().getParametersPanel().getNameInput().getText();
@@ -124,10 +124,16 @@ public class Controller {
         }
     }
 
+    /**
+     * This method is going to clean data on the result table
+     */
     private void cleanResultTable() {
         view.getMainPanel().getResultsPanel().cleanTable();
     }
 
+    /**
+     * This method is going set the data into the result table given a list of files
+     */
     private void setTableResults(List<SearchResult> files){
         // Cleaning the table
         view.getMainPanel().getResultsPanel().cleanTable();
@@ -135,10 +141,10 @@ public class Controller {
             // Setting results on the table result
             for (SearchResult file: files){
                 view.getMainPanel().getResultsPanel().setNewRowResult(new Object[]{
-                        file.getIsDirectoryResult(), file.getFileNameResult(), file.getPathResult(),
-                        file.getFileExtensionResult(), file.getFileSizeResult(), file.getHiddenResult(),
-                        file.getReadOnlyResult(), "Owner:1", "ModificationDate",
-                        "CreationDate","LastAccessDate"});
+                    file.getIsDirectoryResult(), file.getFileNameResult(), file.getPathResult(),
+                    file.getFileExtensionResult(), file.getFileSizeResult(), file.getHiddenResult(),
+                    file.getReadOnlyResult(), "Owner:1", "ModificationDate",
+                    "CreationDate","LastAccessDate"});
             }
         } else {
             //view.getMainPanel().errorMessage("No data", " no hay resultados");

@@ -23,11 +23,12 @@ public class Validation {
     /**
      * This method verifies that the value of a field if not empty or null.
      *
-     * @param field String field value to be verified.
+     * @param field String value to be verified.
      * @return True if the field is empty or null, false otherwise.
      */
     public static boolean isFieldNullOrEmpty(String field){
         boolean fieldVerification = false;
+
         if (field == null || field.isEmpty()) {
             fieldVerification = true;
         }
@@ -44,6 +45,7 @@ public class Validation {
     public static boolean isValidPath(String pathName){
         boolean pathVerification = false;
         String pathPattern = "^[a-zA-Z]:\\\\[\\S|*\\S]?.*$";
+
         if (isFieldNullOrEmpty(pathName)) {
             return pathVerification;
         }
@@ -64,6 +66,7 @@ public class Validation {
     public static boolean isValidFileName(String fileName){
         boolean fileVerification = false;
         String filePattern = "[\\w ?-]*$";
+
         if (fileName.matches(filePattern)) {
             fileVerification = true;
         }
@@ -80,6 +83,7 @@ public class Validation {
     public static boolean isValidFileExtension(String extension){
         boolean extensionVerification = false;
         String extensionPattern = "^([a-z]){2,4}$";
+
         if (extension.matches(extensionPattern)) {
             extensionVerification = true;
         }
@@ -96,6 +100,7 @@ public class Validation {
     public static boolean isValidSize(String size){
         boolean sizeVerification = false;
         String sizePattern = "^\\d{1,9}+$";
+
         if (size.matches(sizePattern)) {
             sizeVerification = true;
         }
