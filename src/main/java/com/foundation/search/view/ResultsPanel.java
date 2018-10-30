@@ -18,6 +18,7 @@ import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.BoxLayout;
 import javax.swing.JLabel;
+import javax.swing.JSeparator;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -34,7 +35,7 @@ public class ResultsPanel extends JPanel {
     DefaultTableModel defTableModel;
     //setting the names of columns and temporal data to the table
     //this data should be cleaned by the controller
-    String[] columnNames = {"Name","Path","Extension", "Size"};
+    String[] columnNames = {"File/Dir","Name","Path","Extension", "Size", "Hidden", "Read-Only","Owner","ModificationDate", "CreationDate","LastAccessDate"};
     Object[][] data = null;
 
     /**
@@ -63,7 +64,13 @@ public class ResultsPanel extends JPanel {
         //Create a JScrollPane to display the title of columns
         JScrollPane resultsTableTitles = new JScrollPane(results);
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
+        //creating the sub-panel where the text of Files found is displayed
+        //right above the table
         add(new JLabel(" "));
+        add(new JLabel(" "));
+        add(new JSeparator());
+        add(new JLabel(" "));
+        add(new JLabel("Files found according to criteria set above: "));
         add(new JLabel(" "));
         add(resultsTableTitles);
     }
