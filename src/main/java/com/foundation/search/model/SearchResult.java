@@ -12,14 +12,22 @@
 
 package com.foundation.search.model;
 
+/**
+ * This class contains the attributes and methods which purpose is to set the 
+ * information related to files and directories that are part of the search 
+ * results.
+ *
+ * @author Shirley Soto
+ * @version 1.0.
+ */
 public class SearchResult {
-    public String pathResult;
-    public String fileNameResult;
-    public String fileExtensionResult;
-    public long fileSizeResult;
-    public boolean readOnlyResult;
-    public boolean hiddenResult;
-    public boolean isDirectoryResult;
+    private String pathResult;
+    private String fileNameResult;
+    private String fileExtensionResult;
+    private long fileSizeResult;
+    private boolean readOnlyResult;
+    private boolean hiddenResult;
+    private boolean isDirectoryResult;
 
     /**
      * getPathResult method returns the path result.

@@ -12,16 +12,23 @@
 
 package com.foundation.search.model;
 
+/**
+ * This class contains the attributes related to the search criteria and also 
+ * the methods to get and set these values.
+ *
+ * @author Shirley Soto
+ * @version 1.0.
+ */
 public class Criteria {
-    public String path;
-    public String fileName;
-    public String fileExtension;
-    public long fileSize;
-    public char sizeComparator;
-    public boolean sizeOption;
-    public boolean readOnly;
-    public boolean hidden;
-    public boolean isDirectory;
+    private String path;
+    private String fileName;
+    private String fileExtension;
+    private long fileSize;
+    private char sizeComparator;
+    private boolean sizeOption;
+    private boolean readOnly;
+    private boolean hidden;
+    private boolean isDirectory;
 
     /**
      * getPath method returns the path value.

@@ -17,6 +17,13 @@ import java.util.List;
 import com.google.common.io.Files;
 import org.apache.commons.io.FileUtils;
 
+/**
+ * This class contains the methods to perform the search of files and directories
+ * by a set of criteria.
+ *
+ * @author Shirley Soto
+ * @version 1.0.
+ */
 public class Search {
 
     /**
@@ -34,7 +41,6 @@ public class Search {
      * @return results List of Objects that contains the search results.
      */
     public List<SearchResult> searchFiles(Criteria criteria){
-
         File directory = new File(criteria.getPath());
         List<SearchResult> results = new ArrayList<>();
 
@@ -135,7 +141,6 @@ public class Search {
                                             extension, long size, boolean readOnly,
                                             boolean isHidden, boolean isDirectory) {
         SearchResult searchResult = new SearchResult();
-
         searchResult.setPathResult(path);
         searchResult.setFileNameResult(name);
         searchResult.setFileExtensionResult(extension);
