@@ -50,15 +50,15 @@ public class Search {
             String name;
             String extension;
             isValidFile = filterByName(file, criteria.getFileName(),
-                    criteria.isDirectory);
+                    criteria.getIsDirectory());
             isValidFile = isValidFile && filterByExtension(file,
                     criteria.getFileExtension());
             isValidFile = isValidFile && filterBySize(file,
                     criteria.getSizeOption(), criteria.getFileSize(),
                     criteria.getSizeComparator());
             isValidFile = isValidFile && isReadOnly(file, criteria.getReadOnly());
-            isValidFile = isValidFile && isHidden(file, criteria.hidden);
-            isValidFile = isValidFile && filterByDirectory(file, criteria.isDirectory);
+            isValidFile = isValidFile && isHidden(file, criteria.getHidden());
+            isValidFile = isValidFile && filterByDirectory(file, criteria.getIsDirectory());
             if (isValidFile) {
                 name = Files.getNameWithoutExtension(file.getName());
                 extension = Files.getFileExtension(file.getName());
