@@ -479,7 +479,6 @@ public class ParametersPanel extends JPanel implements ItemListener {
                 lastAccessDateSelected = (Date) lastAccessDate.getModel().getValue();
             }
         });
-
     }
 
     /**
