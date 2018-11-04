@@ -24,6 +24,7 @@ import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Font;
 
 /**
  * Class ResultsPanel is in charge of setting the table with files resultant
@@ -41,7 +42,7 @@ public class ResultsPanel extends JPanel {
     //this data should be cleaned by the controller
     private String[] columnNames = {"File/Dir","Name","Path","Extension", "Size", "Hidden", "Read-Only","Owner","ModificationDate", "CreationDate","LastAccessDate"};
     private Object[][] data = null;
-    private JLabel filesFoundText = new JLabel("");
+    private JLabel filesFoundText = new JLabel(" ");
 
     /**
      * The constructor of ResultsPanel class where the components are set
@@ -95,7 +96,7 @@ public class ResultsPanel extends JPanel {
      * This method cleans the table, removing all existent rows
      */
     public void cleanTable(){
-        defTableModel.setNumRows(0);
+        defTableModel.setRowCount(0);
     }
 
     /**
@@ -107,11 +108,12 @@ public class ResultsPanel extends JPanel {
      *              1 if there is files found according to search criteria
      */
     public void setFilesFoundLabel(int label){
-        if (label == -1){
+        if (label == -1) {
             filesFoundText.setText("  ");
-        }else if (label == 0){
+        } else if (label == 0) {
             filesFoundText.setText("No files found according to criteria set above.  ");
-        }else if (label == 1){
+            filesFoundText.setForeground(Color.gray);
+        } else if (label == 1) {
             filesFoundText.setText("List of files found according to criteria set above.  ");
         }
     }

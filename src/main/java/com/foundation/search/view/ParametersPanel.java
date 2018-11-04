@@ -125,7 +125,7 @@ public class ParametersPanel extends JPanel implements ItemListener {
         JPanel instructionsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
         instructionsPanel.setBorder(borderB);
         try {
-            BufferedImage image = ImageIO.read(new File("E:/searchD/src/main/java/resources/background.jpg"));
+            BufferedImage image = ImageIO.read(new File("src/main/java/resources/background.jpg"));
             JLabel label = new JLabel(new ImageIcon(image));
             instructionsPanel.add(label);
         }
@@ -153,6 +153,7 @@ public class ParametersPanel extends JPanel implements ItemListener {
         centerPanel.setLayout(new GridBagLayout());
 
         //Path parameters
+        pathLabel.setToolTipText("Insert the path where you want to search");
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 0;
         c.gridy = 0;
@@ -163,7 +164,7 @@ public class ParametersPanel extends JPanel implements ItemListener {
         c.gridy = 0;
         centerPanel.add(pathInputLabel, c);
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.weightx = 0.5;
+        //c.weightx = 0.5;
         c.gridwidth = 1;
         c.gridx = 7;
         c.gridy = 0;
@@ -304,7 +305,7 @@ public class ParametersPanel extends JPanel implements ItemListener {
         c.gridwidth = 1;
         c.gridx = 0;
         c.gridy = 7;
-        centerPanel.add(new JLabel(" "), c);
+        centerPanel.add(new JLabel("  "), c);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 2;
         c.gridy = 7;
@@ -312,7 +313,7 @@ public class ParametersPanel extends JPanel implements ItemListener {
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 3;
         c.gridy = 7;
-        centerPanel.add(new JLabel(" "), c);
+        centerPanel.add(new JLabel("          "), c);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 4;
         c.gridy = 7;
@@ -368,13 +369,13 @@ public class ParametersPanel extends JPanel implements ItemListener {
     public void initializeInputs(){
         //initializing the inputs, comboboxes and checkboxes
         nameInput = new JTextField();
-        String[] extensions = {" ","exe", "png","mp4","pdf","mp4","jpg","txt","xls",
-                               "xcls","sh","java","php","bat","avi"};
+        String[] extensions = {"","exe", "png","mp3","pdf","mp4","jpg","txt","xls",
+                               "xlsx","sh","java","php","bat","avi"};
         extensionInput = new JComboBox(extensions);
         sizeInput = new JTextField();
-        String[] comparisonSelection = {" ", "<", ">","="};
+        String[] comparisonSelection = {"", "<", ">","="};
         sizeComparison = new JComboBox(comparisonSelection);
-        String[] units = {" ", "MB", "GB","KB","byte"};
+        String[] units = {"", "MB", "GB","KB","byte"};
         sizeUnit=new JComboBox(units);
         ownerInput = new JTextField();
         contentInput = new JTextField();
