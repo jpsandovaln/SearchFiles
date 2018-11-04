@@ -29,6 +29,14 @@ public class Criteria {
     private boolean readOnly;
     private boolean hidden;
     private boolean isDirectory;
+    private String owner;
+    private boolean isCreatedDateSelected;
+    private boolean isModifiedDateSelected;
+    private boolean isAccessedDateSelected;
+    private String createdDate;
+    private String modifiedDate;
+    private String accessedDate;
+    private String textToSearch;
 
     /**
      * getPath method returns the path value.
@@ -117,6 +125,81 @@ public class Criteria {
     }
 
     /**
+     * getOwner method returns the owner name.
+     *
+     * @return owner String that contains the owner name.
+     */
+    public String getOwner(){
+        return this.owner;
+    }
+
+    /**
+     * getCreatedDateSelected method returns the status of Created Date checkbox.
+     *
+     * @return isCreatedDateSelected Boolean equal to true when Created Date checkbox
+     *         is selected.
+     */
+    public boolean getCreatedDateSelected(){
+        return this.isCreatedDateSelected;
+    }
+
+    /**
+     * getModifiedDateSelected method returns the status of Modified Date checkbox.
+     *
+     * @return isModifiedDateSelected Boolean equal to true when Modified Date checkbox
+     *         is selected.
+     */
+    public boolean getModifiedDateSelected(){
+        return this.isModifiedDateSelected;
+    }
+
+    /**
+     * getAccessedDateSelected method returns the status of Accessed Date checkbox.
+     *
+     * @return isAccessedDateSelected Boolean equal to true when Accessed Date checkbox
+     *         is selected.
+     */
+    public boolean getAccessedDateSelected(){
+        return this.isAccessedDateSelected;
+    }
+
+    /**
+     * getCreatedDate method returns the created Date value.
+     *
+     * @return createdDate String that contains the Created Date value.
+     */
+    public String getCreatedDate(){
+        return this.createdDate;
+    }
+
+    /**
+     * getModifiedDate method returns the Modified Date value.
+     *
+     * @return modifiedDate String that contains the Modified Date value.
+     */
+    public String getModifiedDate(){
+        return this.modifiedDate;
+    }
+
+    /**
+     * getAccessedDate method returns the Accessed Date value.
+     *
+     * @return AccessedDate String that contains the Accessed Date value.
+     */
+    public String getAccessedDate(){
+        return this.accessedDate;
+    }
+
+    /**
+     * getTextToSearch method returns the Text to search in the files.
+     *
+     * @return textToSearch String that contains the text to search in files.
+     */
+    public String getTextToSearch(){
+        return this.textToSearch;
+    }
+
+    /**
      * setPath method allows to set the path value.
      *
      * @param path String that contains the path value.
@@ -199,5 +282,83 @@ public class Criteria {
      */
     public void setIsDirectory(boolean isDirectory){
         this.isDirectory = isDirectory;
+    }
+
+    /**
+     * setOwner method allows to set the owner value.
+     *
+     * @param owner string that stores the 'Owner' search criteria
+     */
+    public void setOwner(String owner){
+        this.owner = owner;
+    }
+
+    /**
+     * setCreatedDateOption method allows to set the value for
+     * Created Date checkbox.
+     *
+     * @param isCreatedDateSelected boolean that stores the information about
+     *        Created Date checkbox.
+     */
+    public void setCreatedDateOption(boolean isCreatedDateSelected){
+        this.isCreatedDateSelected = isCreatedDateSelected;
+    }
+
+    /**
+     * setModifiedDateOption method allows to set the value for
+     * Modified Date checkbox.
+     *
+     * @param isModifiedDateSelected boolean that stores the information about
+     *        Modified Date checkbox.
+     */
+    public void setModifiedDateOption(boolean isModifiedDateSelected){
+        this.isModifiedDateSelected = isModifiedDateSelected;
+    }
+
+    /**
+     * setAccessedDateOption method allows to set the value for
+     * Accessed Date checkbox.
+     *
+     * @param isAccessedDateSelected boolean that stores the information about
+     *        Accessed Date checkbox.
+     */
+    public void setAccessedDateOption(boolean isAccessedDateSelected){
+        this.isAccessedDateSelected = isAccessedDateSelected;
+    }
+
+    /**
+     * setCreatedDate method allows to set the Created Date value.
+     *
+     * @param createdDate string that stores the 'created Date' search criteria
+     */
+    public void setCreatedDate(String createdDate){
+        this.createdDate = createdDate;
+    }
+
+    /**
+     * setModifiedDate method allows to set the Modified Date value.
+     *
+     * @param modifiedDate string that stores the 'Modified Date' search criteria
+     */
+    public void setModifiedDate(String modifiedDate){
+        this.modifiedDate = modifiedDate;
+    }
+
+    /**
+     * setAccessedDate method allows to set the Accessed Date value.
+     *
+     * @param accessedDate string that stores the 'accessed Date' search criteria
+     */
+    public void setAccessedDate(String accessedDate){
+        this.accessedDate = accessedDate;
+    }
+
+    /**
+     * setTextToSearch method allows to set the Text to search.
+     *
+     * @param textToSearch string that stores the Text to search in files.
+     */
+    public void setTextToSearch(String textToSearch){
+        this.textToSearch = textToSearch;
     }
 }
