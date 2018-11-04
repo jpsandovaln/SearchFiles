@@ -164,7 +164,6 @@ public class ParametersPanel extends JPanel implements ItemListener {
         c.gridy = 0;
         centerPanel.add(pathInputLabel, c);
         c.fill = GridBagConstraints.HORIZONTAL;
-        //c.weightx = 0.5;
         c.gridwidth = 1;
         c.gridx = 7;
         c.gridy = 0;
