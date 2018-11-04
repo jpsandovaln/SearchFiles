@@ -15,6 +15,7 @@ package com.foundation.search.view;
 
 import javax.swing.JPanel;
 import javax.swing.BoxLayout;
+import javax.swing.JOptionPane;
 
 /**
  * This class contains the parameters panel and results panel
@@ -78,5 +79,15 @@ public class MainPanel extends JPanel {
      */
     public ResultsPanel getResultsPanel(){
         return result;
+    }
+
+    /**
+     * This method allows to setup an error message
+     *
+     * @param message  the String message to show
+     */
+    public static void errorMessage(String message){
+        JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);
+
     }
 }
