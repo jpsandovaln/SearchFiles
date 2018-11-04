@@ -88,6 +88,5 @@ public class MainPanel extends JPanel {
      */
     public static void errorMessage(String message){
         JOptionPane.showMessageDialog(null, message, "Error", JOptionPane.ERROR_MESSAGE);
-
     }
 }
