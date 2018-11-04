@@ -386,16 +386,16 @@ public class ParametersPanel extends JPanel implements ItemListener {
         readOnly = new JCheckBox("Include Read-Only Files");
         readOnly.setMnemonic(KeyEvent.VK_D);
         readOnly.setSelected(false);
-        onlyFiles = new JCheckBox("Include Files Only");
+        onlyFiles = new JCheckBox("Include Directories Only");
         onlyFiles.setMnemonic(KeyEvent.VK_D);
         onlyFiles.setSelected(false);
-        byCreationDate = new JCheckBox("Files created after date");
+        byCreationDate = new JCheckBox("Files created at");
         byCreationDate.setMnemonic(KeyEvent.VK_D);
         byCreationDate.setSelected(false);
-        byModificationDate = new JCheckBox("Files modified after date");
+        byModificationDate = new JCheckBox("Files modified at");
         byModificationDate.setMnemonic(KeyEvent.VK_D);
         byModificationDate.setSelected(false);
-        byLastDayAccessed = new JCheckBox("Files accessed after date");
+        byLastDayAccessed = new JCheckBox("Files accessed at");
         byLastDayAccessed.setMnemonic(KeyEvent.VK_D);
         byLastDayAccessed.setSelected(false);
 
@@ -625,5 +625,23 @@ public class ParametersPanel extends JPanel implements ItemListener {
      */
     public Date getLastAccessDate(){
         return lastAccessDateSelected;
+    }
+
+    /**
+     * This method returns the Owner inserted to filter the search by owner
+     *
+     * @return owner
+     */
+    public String getOwner(){
+        return ownerInput.getText();
+    }
+
+    /**
+     * This method returns the content inserted to filter the search by content
+     *
+     * @return owner
+     */
+    public String getContent(){
+        return contentInput.getText();
     }
 }
