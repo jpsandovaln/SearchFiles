@@ -13,13 +13,18 @@
 
 package com.foundation.search.view;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTable;
 import javax.swing.JScrollPane;
 import javax.swing.BoxLayout;
-import javax.swing.JLabel;
+import javax.swing.BorderFactory;
 import javax.swing.JSeparator;
+import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
 
 /**
  * Class ResultsPanel is in charge of setting the table with files resultant
@@ -32,11 +37,12 @@ import javax.swing.table.DefaultTableModel;
 
 public class ResultsPanel extends JPanel {
 
-    DefaultTableModel defTableModel;
+    private DefaultTableModel defTableModel;
     //setting the names of columns and temporal data to the table
     //this data should be cleaned by the controller
-    String[] columnNames = {"File/Dir","Name","Path","Extension", "Size", "Hidden", "Read-Only","Owner","ModificationDate", "CreationDate","LastAccessDate"};
-    Object[][] data = null;
+    private String[] columnNames = {"File/Dir","Name","Path","Extension", "Size", "Hidden", "Read-Only","Owner","ModificationDate", "CreationDate","LastAccessDate"};
+    private Object[][] data = null;
+    private JLabel filesFoundText = new JLabel(" ");
 
     /**
      * The constructor of ResultsPanel class where the components are set
@@ -66,11 +72,13 @@ public class ResultsPanel extends JPanel {
         setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
         //creating the sub-panel where the text of Files found is displayed
         //right above the table
+        Border borderB = BorderFactory.createLineBorder(Color.LIGHT_GRAY, 2);
+        JSeparator separator = new JSeparator();
+        separator.setPreferredSize(new Dimension(50,1));
+        separator.setBorder(borderB);
+        add(separator);
         add(new JLabel(" "));
-        add(new JLabel(" "));
-        add(new JSeparator());
-        add(new JLabel(" "));
-        add(new JLabel("Files found according to criteria set above: "));
+        add(filesFoundText);
         add(new JLabel(" "));
         add(resultsTableTitles);
     }
@@ -86,11 +94,27 @@ public class ResultsPanel extends JPanel {
 
     /**
      * This method cleans the table, removing all existent rows
-     *
-     * @return True If the table was clean
      */
-    public boolean cleanTable(){
-        defTableModel.getDataVector().removeAllElements();
-        return true;
+    public void cleanTable(){
+        defTableModel.setRowCount(0);
+    }
+
+    /**
+     * This method sets the text to display above the table with resultant files found
+     *
+     * @param label this parameter will define the text to display
+     *              -1 if no search was performed or if the table was cleaned
+     *              0 if there is no files found according to search criteria
+     *              1 if there is files found according to search criteria
+     */
+    public void setFilesFoundLabel(int label){
+        if (label == -1) {
+            filesFoundText.setText("  ");
+        } else if (label == 0) {
+            filesFoundText.setText("No files found according to criteria set above.  ");
+            filesFoundText.setForeground(Color.gray);
+        } else if (label == 1) {
+            filesFoundText.setText("List of files found according to criteria set above.  ");
+        }
     }
 }

@@ -11,6 +11,7 @@
  */
 
 package com.foundation.search.view;
+
 import javax.swing.JFrame;
 
 /**
@@ -40,7 +41,7 @@ public class SearchView extends JFrame{
     private void setting() {
         mainPanel = new MainPanel();
         this.setTitle("Search Files ");
-        this.setSize(1100, 600);
+        this.setSize(1100, 780);
         this.setLocationRelativeTo(null);
         this.setResizable(true);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
