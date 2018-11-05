@@ -101,7 +101,7 @@ public class Validation {
     public static boolean isValidFileExtension(String extension){
         boolean extensionVerification = false;
         String extensionPattern =
-            "(exe|png|mp4|pdf|mp3|jpg|txt|xls|xlsx|sh|java|php|bat|avi)$";
+            "(exe|png|mp4|pdf|mp3|jpg|txt|xls|xlsx|sh|java|php|bat|avi|xml|json|doc|docx)$";
 
         if (extension.matches(extensionPattern)) {
             extensionVerification = true;

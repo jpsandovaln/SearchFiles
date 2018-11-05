@@ -12,10 +12,13 @@
 
 package com.foundation.search.controller;
 
+import com.foundation.search.model.Asset;
 import com.foundation.search.model.Criteria;
 import com.foundation.search.model.Search;
 import com.foundation.search.model.SearchResult;
 import com.foundation.search.view.SearchView;
+
+import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -45,7 +48,7 @@ public class Controller {
      * to the search method.
      * This set the list of files results to the table result
      */
-    public void getSearchCriteria() {
+    public void getSearchCriteria(){
         Criteria searchCriteria = new Criteria();
         // boolean variable that will control if the fields are valid to do the
         // searching criteria
@@ -62,103 +65,107 @@ public class Controller {
         Date modifiedDate = (view.getMainPanel().getParametersPanel().getModificationDate());
         Date lastAccessedDate = (view.getMainPanel().getParametersPanel().getLastAccessDate());
 
-        if (Validation.isValidPath(path)) {
-            searchCriteria.setPath(path);
-            validFields = true;
-        } else {
-            view.getMainPanel().errorMessage("Path value is not valid or it is empty. Insert a valid path (i.e. C:\\)");
-        }
-
-        if (!(Validation.isFieldNullOrEmpty(fileName))
-                &&(Validation.isValidFileName(fileName))) {
-            searchCriteria.setFileName(fileName);
-        } else if (!(Validation.isFieldNullOrEmpty(fileName))
-                      &&!(Validation.isValidFileName(fileName))) {
-            view.getMainPanel().errorMessage("File name is not valid. Insert a valid file name");
-            validFields = false;
-        }
-
-        if (!(Validation.isFieldNullOrEmpty(extension))
-                && (Validation.isValidFileExtension(extension))) {
-            searchCriteria.setFileExtension(extension);
-        } else if (!(Validation.isFieldNullOrEmpty(extension))
-                      &&!(Validation.isValidFileExtension(extension))) {
-            view.getMainPanel().errorMessage("Extension is not valid. Insert a valid file extension");
-            validFields = false;
-        }
-
-        if (!(Validation.isFieldNullOrEmpty(size[1]))
-                && (Validation.isValidSize(size[1]))) {
-            long sizeInBytes;
-            int convertedSize = Integer.parseInt(size[1]);
-            sizeComparator = size[0].charAt(0);
-            unitOfMeasure = size[2];
-
-            if (!unitOfMeasure.equalsIgnoreCase("byte")) {
-                sizeInBytes = Utilities.convertToBytes(convertedSize,unitOfMeasure);
+        try{
+            if (Validation.isValidPath(path)) {
+                searchCriteria.setPath(path);
+                validFields = true;
             } else {
-                sizeInBytes = convertedSize;
+                view.getMainPanel().errorMessage("Path value is not valid or it is empty. Insert a valid path (i.e. C:\\)");
             }
-            searchCriteria.setFileSize(sizeInBytes);
-            searchCriteria.setSizeComparator(sizeComparator);
-            searchCriteria.setSizeOption(true);
-        } else if (!(Validation.isFieldNullOrEmpty(size[1])) &&
-                      !(Validation.isValidSize(size[1]))) {
-            view.getMainPanel().errorMessage("Size is not valid. The size should be" +
-                " between a range of 0 to 9 whole numbers.");
-            validFields = false;
-        }
 
-        if (!(Validation.isFieldNullOrEmpty(owner))
-                &&(Validation.isValidOwnerName(owner))) {
-            searchCriteria.setOwner(owner);
-        } else if (!(Validation.isFieldNullOrEmpty(owner))
-                &&!(Validation.isValidOwnerName(owner))) {
-            view.getMainPanel().errorMessage("Owner value is not valid. Insert a valid owner name");
-            validFields = false;
-        }
+            if (!(Validation.isFieldNullOrEmpty(fileName))
+                    &&(Validation.isValidFileName(fileName))) {
+                searchCriteria.setFileName(fileName);
+            } else if (!(Validation.isFieldNullOrEmpty(fileName))
+                          &&!(Validation.isValidFileName(fileName))) {
+                view.getMainPanel().errorMessage("File name is not valid. Insert a valid file name");
+                validFields = false;
+            }
 
-        if (!Validation.isFieldNullOrEmpty(content)) {
-            searchCriteria.setTextToSearch(content);
-        }
+            if (!(Validation.isFieldNullOrEmpty(extension))
+                    && (Validation.isValidFileExtension(extension))) {
+                searchCriteria.setFileExtension(extension);
+            } else if (!(Validation.isFieldNullOrEmpty(extension))
+                          &&!(Validation.isValidFileExtension(extension))) {
+                view.getMainPanel().errorMessage("Extension is not valid. Insert a valid file extension");
+                validFields = false;
+            }
 
-        boolean isHidden = view.getMainPanel().getParametersPanel().getHidden();
-        if (isHidden == true) {
-            searchCriteria.setHidden(isHidden);
-        }
+            if (!(Validation.isFieldNullOrEmpty(size[1]))
+                   && (Validation.isValidSize(size[1]))) {
+                long sizeInBytes;
+                int convertedSize = Integer.parseInt(size[1]);
+                sizeComparator = size[0].charAt(0);
+                unitOfMeasure = size[2];
 
-        boolean isReadOnly = view.getMainPanel().getParametersPanel().getReadOnly();
-        if (isReadOnly == true) {
-            searchCriteria.setReadOnly(isReadOnly);
-        }
+                if (!unitOfMeasure.equalsIgnoreCase("byte")) {
+                    sizeInBytes = Utilities.convertToBytes(convertedSize,unitOfMeasure);
+                } else {
+                    sizeInBytes = convertedSize;
+                }
+                searchCriteria.setFileSize(sizeInBytes);
+                searchCriteria.setSizeComparator(sizeComparator);
+                searchCriteria.setSizeOption(true);
+            } else if (!(Validation.isFieldNullOrEmpty(size[1])) &&
+                          !(Validation.isValidSize(size[1]))) {
+                view.getMainPanel().errorMessage("Size is not valid. The size should be" +
+                        " between a range of 0 to 9 whole numbers.");
+                validFields = false;
+            }
 
-        boolean onlyDirectory = view.getMainPanel().getParametersPanel().getOnlyFiles();
-        if (onlyDirectory == true) {
-            searchCriteria.setIsDirectory(onlyDirectory);
-        }
+            if (!(Validation.isFieldNullOrEmpty(owner))
+                   &&(Validation.isValidOwnerName(owner))) {
+                searchCriteria.setOwner(owner);
+            } else if (!(Validation.isFieldNullOrEmpty(owner))
+                          &&!(Validation.isValidOwnerName(owner))) {
+                view.getMainPanel().errorMessage("Owner value is not valid. Insert a valid owner name");
+                validFields = false;
+            }
 
-        if (createdDate != null) {
-            String searchCreationDate = Utilities.convertToFormatDate(createdDate);
-            searchCriteria.setCreatedDate(searchCreationDate);
-            searchCriteria.setCreatedDateOption(true);
-        }
+            if (!Validation.isFieldNullOrEmpty(content)){
+                searchCriteria.setTextToSearch(content);
+            }
 
-        if (modifiedDate != null) {
-            String searchModifiedDate = Utilities.convertToFormatDate(modifiedDate);
-            searchCriteria.setModifiedDate(searchModifiedDate);
-            searchCriteria.setModifiedDateOption(true);
-        }
+            boolean isHidden = view.getMainPanel().getParametersPanel().getHidden();
+            if (isHidden == true) {
+                searchCriteria.setHidden(isHidden);
+            }
 
-        if (lastAccessedDate != null) {
-            String searchLastAccessedDate = Utilities.convertToFormatDate(lastAccessedDate);
-            searchCriteria.setAccessedDate(searchLastAccessedDate);
-            searchCriteria.setAccessedDateOption(true);
-        }
+            boolean isReadOnly = view.getMainPanel().getParametersPanel().getReadOnly();
+            if (isReadOnly == true) {
+                searchCriteria.setReadOnly(isReadOnly);
+            }
 
-        // Sending searching criteria to the search method if validFields is true
-        if (validFields == true) {
-            List<SearchResult> files = search.searchFiles(searchCriteria);
-            setTableResults(files);
+            boolean onlyDirectory = view.getMainPanel().getParametersPanel().getOnlyFiles();
+            if (onlyDirectory == true) {
+                searchCriteria.setIsDirectory(onlyDirectory);
+            }
+
+            if (createdDate != null) {
+                String searchCreationDate = Utilities.convertToFormatDate(createdDate);
+                searchCriteria.setCreatedDate(searchCreationDate);
+                searchCriteria.setCreatedDateOption(true);
+            }
+
+            if (modifiedDate != null) {
+                String searchModifiedDate = Utilities.convertToFormatDate(modifiedDate);
+                searchCriteria.setModifiedDate(searchModifiedDate);
+                searchCriteria.setModifiedDateOption(true);
+            }
+
+            if (lastAccessedDate != null) {
+                String searchLastAccessedDate = Utilities.convertToFormatDate(lastAccessedDate);
+                searchCriteria.setAccessedDate(searchLastAccessedDate);
+                searchCriteria.setAccessedDateOption(true);
+            }
+
+            // Sending searching criteria to the search method if validFields is true
+            if (validFields == true) {
+                List<Asset> files = search.searchFiles(searchCriteria);
+                setTableResults(files);
+            }
+        } catch (Exception e) {
+            view.getMainPanel().errorMessage("An error has occurred: " + e.getMessage());
         }
     }
 
@@ -173,19 +180,19 @@ public class Controller {
     /**
      * This method is going set the data into the result table given a list of files
      */
-    private void setTableResults(List<SearchResult> files){
+    private void setTableResults(List<Asset> files){
         // Cleaning the table
         view.getMainPanel().getResultsPanel().cleanTable();
         if (files.size()!=0) {
             // Setting results on the table result
-            for (SearchResult file: files){
+            for (Asset file: files){
                 view.getMainPanel().getResultsPanel().setFilesFoundLabel(1);
                 view.getMainPanel().getResultsPanel().setNewRowResult(new Object[]{
-                    Utilities.convertDirectoryResultToString(file.getIsDirectoryResult()),
+                    Utilities.convertDirectoryResultToString(((SearchResult) file).getIsDirectoryResult()),
                     file.getFileNameResult(), file.getPathResult(),
                     file.getFileExtensionResult(), file.getFileSizeResult(),
                     Utilities.convertBooleanResultToString(file.getHiddenResult()),
-                    Utilities.convertBooleanResultToString(file.getReadOnlyResult()),
+                    Utilities.convertBooleanResultToString(((SearchResult) file).getReadOnlyResult()),
                     file.getOwnerResult(), file.getModifiedDateResult(),
                     file.getCreatedDateResult(), file.getAccessedDateResult()});
             }
