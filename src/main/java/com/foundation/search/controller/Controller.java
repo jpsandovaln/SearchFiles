@@ -16,6 +16,7 @@ import com.foundation.search.model.Criteria;
 import com.foundation.search.model.Search;
 import com.foundation.search.model.SearchResult;
 import com.foundation.search.view.SearchView;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -49,35 +50,40 @@ public class Controller {
         // boolean variable that will control if the fields are valid to do the
         // searching criteria
         boolean validFields = false;
-        String path = view.getMainPanel().getParametersPanel().getPath();
-        String fileName = view.getMainPanel().getParametersPanel().getNameInput().getText();
-        String extension = view.getMainPanel().getParametersPanel().getExtensionInput();
+        String path = (view.getMainPanel().getParametersPanel().getPath()).trim();
+        String fileName = (view.getMainPanel().getParametersPanel().getNameInput().getText()).trim();
+        String extension = (view.getMainPanel().getParametersPanel().getExtensionInput()).trim();
+        String owner = (view.getMainPanel().getParametersPanel().getOwner()).trim();
+        String content = (view.getMainPanel().getParametersPanel().getContent()).trim();
         String[] size = view.getMainPanel().getParametersPanel().getSizeInput();;
         String unitOfMeasure;
         char sizeComparator;
+        Date createdDate = (view.getMainPanel().getParametersPanel().getCreationDate());
+        Date modifiedDate = (view.getMainPanel().getParametersPanel().getModificationDate());
+        Date lastAccessedDate = (view.getMainPanel().getParametersPanel().getLastAccessDate());
 
-        if (Validation.isValidPath(path)){
+        if (Validation.isValidPath(path)) {
             searchCriteria.setPath(path);
             validFields = true;
         } else {
-            //view.getMainPanel().errorMessage("Path", " is not valid or is empty. Insert a valid path (i.e. C:\\)");
+            view.getMainPanel().errorMessage("Path value is not valid or it is empty. Insert a valid path (i.e. C:\\)");
         }
 
         if (!(Validation.isFieldNullOrEmpty(fileName))
-                &&(Validation.isValidFileName(fileName))){
+                &&(Validation.isValidFileName(fileName))) {
             searchCriteria.setFileName(fileName);
         } else if (!(Validation.isFieldNullOrEmpty(fileName))
                       &&!(Validation.isValidFileName(fileName))) {
-            //view.getMainPanel().errorMessage("File name", " is not valid. Insert a valid file name");
+            view.getMainPanel().errorMessage("File name is not valid. Insert a valid file name");
             validFields = false;
         }
 
         if (!(Validation.isFieldNullOrEmpty(extension))
-                && (Validation.isValidFileName(extension))){
+                && (Validation.isValidFileExtension(extension))) {
             searchCriteria.setFileExtension(extension);
         } else if (!(Validation.isFieldNullOrEmpty(extension))
                       &&!(Validation.isValidFileExtension(extension))) {
-            //view.getMainPanel().errorMessage("extension", " is not valid. Insert a valid file extension");
+            view.getMainPanel().errorMessage("Extension is not valid. Insert a valid file extension");
             validFields = false;
         }
 
@@ -88,7 +94,7 @@ public class Controller {
             sizeComparator = size[0].charAt(0);
             unitOfMeasure = size[2];
 
-            if (!unitOfMeasure.equalsIgnoreCase("byte")){
+            if (!unitOfMeasure.equalsIgnoreCase("byte")) {
                 sizeInBytes = Utilities.convertToBytes(convertedSize,unitOfMeasure);
             } else {
                 sizeInBytes = convertedSize;
@@ -98,8 +104,22 @@ public class Controller {
             searchCriteria.setSizeOption(true);
         } else if (!(Validation.isFieldNullOrEmpty(size[1])) &&
                       !(Validation.isValidSize(size[1]))) {
-            //view.getMainPanel().errorMessage("size", " is not valid. Max length is 9 digits");
+            view.getMainPanel().errorMessage("Size is not valid. The size should be" +
+                " between a range of 0 to 9 whole numbers.");
             validFields = false;
+        }
+
+        if (!(Validation.isFieldNullOrEmpty(owner))
+                &&(Validation.isValidOwnerName(owner))) {
+            searchCriteria.setOwner(owner);
+        } else if (!(Validation.isFieldNullOrEmpty(owner))
+                &&!(Validation.isValidOwnerName(owner))) {
+            view.getMainPanel().errorMessage("Owner value is not valid. Insert a valid owner name");
+            validFields = false;
+        }
+
+        if (!Validation.isFieldNullOrEmpty(content)) {
+            searchCriteria.setTextToSearch(content);
         }
 
         boolean isHidden = view.getMainPanel().getParametersPanel().getHidden();
@@ -117,8 +137,26 @@ public class Controller {
             searchCriteria.setIsDirectory(onlyDirectory);
         }
 
+        if (createdDate != null) {
+            String searchCreationDate = Utilities.convertToFormatDate(createdDate);
+            searchCriteria.setCreatedDate(searchCreationDate);
+            searchCriteria.setCreatedDateOption(true);
+        }
+
+        if (modifiedDate != null) {
+            String searchModifiedDate = Utilities.convertToFormatDate(modifiedDate);
+            searchCriteria.setModifiedDate(searchModifiedDate);
+            searchCriteria.setModifiedDateOption(true);
+        }
+
+        if (lastAccessedDate != null) {
+            String searchLastAccessedDate = Utilities.convertToFormatDate(lastAccessedDate);
+            searchCriteria.setAccessedDate(searchLastAccessedDate);
+            searchCriteria.setAccessedDateOption(true);
+        }
+
         // Sending searching criteria to the search method if validFields is true
-        if (validFields == true){
+        if (validFields == true) {
             List<SearchResult> files = search.searchFiles(searchCriteria);
             setTableResults(files);
         }
@@ -129,6 +167,7 @@ public class Controller {
      */
     private void cleanResultTable() {
         view.getMainPanel().getResultsPanel().cleanTable();
+        view.getMainPanel().getResultsPanel().setFilesFoundLabel(-1);
     }
 
     /**
@@ -140,14 +179,18 @@ public class Controller {
         if (files.size()!=0) {
             // Setting results on the table result
             for (SearchResult file: files){
+                view.getMainPanel().getResultsPanel().setFilesFoundLabel(1);
                 view.getMainPanel().getResultsPanel().setNewRowResult(new Object[]{
-                    file.getIsDirectoryResult(), file.getFileNameResult(), file.getPathResult(),
-                    file.getFileExtensionResult(), file.getFileSizeResult(), file.getHiddenResult(),
-                    file.getReadOnlyResult(), "Owner:1", "ModificationDate",
-                    "CreationDate","LastAccessDate"});
+                    Utilities.convertDirectoryResultToString(file.getIsDirectoryResult()),
+                    file.getFileNameResult(), file.getPathResult(),
+                    file.getFileExtensionResult(), file.getFileSizeResult(),
+                    Utilities.convertBooleanResultToString(file.getHiddenResult()),
+                    Utilities.convertBooleanResultToString(file.getReadOnlyResult()),
+                    file.getOwnerResult(), file.getModifiedDateResult(),
+                    file.getCreatedDateResult(), file.getAccessedDateResult()});
             }
         } else {
-            //view.getMainPanel().errorMessage("No data", " no hay resultados");
+            view.getMainPanel().getResultsPanel().setFilesFoundLabel(0);
         }
     }
 }

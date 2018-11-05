@@ -74,15 +74,34 @@ public class Validation {
     }
 
     /**
+     * This method verifies valid owner name. An owner name could contain alphanumeric
+     * underscore, backslash, space and dash characters.
+     *
+     * @param owner Name of the owner which is going to be verified. i.e. "PC1\admin_1"
+     * @return boolean
+     */
+    public static boolean isValidOwnerName(String owner){
+        boolean ownerVerification = false;
+        String filePattern = "[\\w \\\\-]*$";
+
+        if (owner.matches(filePattern)) {
+            ownerVerification = true;
+        }
+        return ownerVerification;
+    }
+
+    /**
      * This method validates the extension of a file, the extension should have a
-     * size between 2 and 4 alphabetical characters only.
+     * size between 2 and 4 characters only and should match with any of the values
+     * on the extension pattern list.
      *
      * @param extension File extension. i.e. "txt"
      * @return boolean
      */
     public static boolean isValidFileExtension(String extension){
         boolean extensionVerification = false;
-        String extensionPattern = "^([a-z]){2,4}$";
+        String extensionPattern =
+            "(exe|png|mp4|pdf|mp3|jpg|txt|xls|xlsx|sh|java|php|bat|avi)$";
 
         if (extension.matches(extensionPattern)) {
             extensionVerification = true;

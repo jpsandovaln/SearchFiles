@@ -12,8 +12,11 @@
 
 package com.foundation.search.controller;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 /**
- * This class is an utility library that contains conversion to bytes method
+ * This class is an utility library that contains conversion methods
  *
  * @author Mary Ricalde
  * @version 1.0.
@@ -23,6 +26,7 @@ public class Utilities {
     private static final long UNIT_MEASURE_KB = UNIT_MEASURE_BASE;
     private static final long UNIT_MEASURE_MB = UNIT_MEASURE_BASE * UNIT_MEASURE_KB;
     private static final long UNIT_MEASURE_GB = UNIT_MEASURE_BASE * UNIT_MEASURE_MB;
+    private static final String FORMAT_DATE_PATTERN = "yyyyMMdd";
 
     /**
      * This method converts a provided size which can be in GB. MB or KB to bytes
@@ -49,5 +53,46 @@ public class Utilities {
                 break;
         }
         return convertedToBytes;
+    }
+
+    /**
+     * This method converts a provided date to String.
+     *
+     * @param date Value of data type Date to convert
+     * @return String value that contains the date value converted
+     *         to String formatted to yyyyMMdd
+     */
+    public static String convertToFormatDate(Date date){
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat(FORMAT_DATE_PATTERN);
+        String formatted = simpleDateFormat.format(date);
+        return formatted;
+    }
+
+    /**
+     * This method converts a boolean result to String
+     *
+     * @param result Boolean value to convert (true or false)
+     * @return String value Yes or No
+     */
+    public static String convertBooleanResultToString(boolean result){
+        if (result == true) {
+            return "Yes";
+        } else {
+            return "No";
+        }
+    }
+
+    /**
+     * This method converts a boolean directory result to String
+     *
+     * @param isDirectory Boolean value to convert (true or false)
+     * @return String value Directory or File
+     */
+    public static String convertDirectoryResultToString(boolean isDirectory){
+        if (isDirectory == true) {
+            return "Directory";
+        } else {
+            return "File";
+        }
     }
 }
