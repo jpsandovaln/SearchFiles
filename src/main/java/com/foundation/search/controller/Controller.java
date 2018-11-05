@@ -17,8 +17,6 @@ import com.foundation.search.model.Criteria;
 import com.foundation.search.model.Search;
 import com.foundation.search.model.SearchResult;
 import com.foundation.search.view.SearchView;
-
-import java.io.IOException;
 import java.util.Date;
 import java.util.List;
 
@@ -48,7 +46,7 @@ public class Controller {
      * to the search method.
      * This set the list of files results to the table result
      */
-    public void getSearchCriteria(){
+    public void getSearchCriteria() {
         Criteria searchCriteria = new Criteria();
         // boolean variable that will control if the fields are valid to do the
         // searching criteria
@@ -122,7 +120,7 @@ public class Controller {
                 validFields = false;
             }
 
-            if (!Validation.isFieldNullOrEmpty(content)){
+            if (!Validation.isFieldNullOrEmpty(content)) {
                 searchCriteria.setTextToSearch(content);
             }
 
