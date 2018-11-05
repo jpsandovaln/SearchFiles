@@ -22,9 +22,13 @@ import javax.swing.BorderFactory;
 import javax.swing.JSeparator;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
+import java.awt.FlowLayout;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import javax.imageio.ImageIO;
 
 /**
  * Class ResultsPanel is in charge of setting the table with files resultant
@@ -111,9 +115,10 @@ public class ResultsPanel extends JPanel {
         if (label == -1) {
             filesFoundText.setText("  ");
         } else if (label == 0) {
-            filesFoundText.setText("No files found according to criteria set above.  ");
             filesFoundText.setForeground(Color.gray);
+            filesFoundText.setText("No files found according to criteria set above.  ");
         } else if (label == 1) {
+            filesFoundText.setForeground(Color.black);
             filesFoundText.setText("List of files found according to criteria set above.  ");
         }
     }
