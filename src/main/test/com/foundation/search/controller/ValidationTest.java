@@ -101,8 +101,42 @@ public class ValidationTest {
     }
 
     @Test
+    public void validationIsValidOwnerNameWithAlphanumericText() {
+        String ownerName = "juan10";
+        boolean actualResult = Validation.isValidOwnerName(ownerName);
+        assertEquals(true, actualResult);
+    }
+
+    @Test
+    public void validationIsValidOwnerNameWithOnlyText() {
+        String ownerName = "admin";
+        boolean actualResult = Validation.isValidOwnerName(ownerName);
+        assertEquals(true, actualResult);
+    }
+
+    @Test
+    public void validationIsValidOwnerNameWithValidCharacter() {
+        String ownerName = "juan_10";
+        boolean actualResult = Validation.isValidOwnerName(ownerName);
+        assertEquals(true, actualResult);
+    }
+
+    @Test
+    public void validationIsValidOwnerNameWithAllValidCharacters() {
+        String ownerName = "PC1\\admin 1";
+        boolean actualResult = Validation.isValidOwnerName(ownerName);
+        assertEquals(true, actualResult);
+    }
+
+    @Test
+    public void validationIsValidOwnerNameWithInvalidCharacter() {
+        String ownerName = "admin@1";
+        boolean actualResult = Validation.isValidOwnerName(ownerName);
+        assertEquals(false, actualResult);
+    }
+
+    @Test
     public void validationIsValidFileExtensionWithLengthOf2() {
-        // expected result should be true with extension of 2 or 4 characters
         String extension = "sh";
         boolean actualResult = Validation.isValidFileExtension(extension);
         assertEquals(true, actualResult);
@@ -110,8 +144,14 @@ public class ValidationTest {
 
     @Test
     public void validationIsValidFileExtensionWithLengthOf4() {
-        // expected result should be true with extension of 2 or 4 characters
         String extension = "xlsx";
+        boolean actualResult = Validation.isValidFileExtension(extension);
+        assertEquals(true, actualResult);
+    }
+
+    @Test
+    public void validationIsValidFileExtensionWithValidAlphanumericText() {
+        String extension = "mp4";
         boolean actualResult = Validation.isValidFileExtension(extension);
         assertEquals(true, actualResult);
     }
@@ -131,15 +171,8 @@ public class ValidationTest {
     }
 
     @Test
-    public void validationIsValidFileExtensionWithNoAlphabeticalText() {
-        String extension = "txt2";
-        boolean actualResult = Validation.isValidFileExtension(extension);
-        assertEquals(false, actualResult);
-    }
-
-    @Test
     public void validationIsValidFileExtensionWithEmptyText() {
-        String extension = "";
+        String extension = " ";
         boolean actualResult = Validation.isValidFileExtension(extension);
         assertEquals(false, actualResult);
     }
