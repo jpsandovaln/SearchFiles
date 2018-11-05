@@ -59,6 +59,13 @@ public class ValidationTest {
     }
 
     @Test
+    public void validationIsValidPathWithEmptyPath(){
+        String path = "";
+        boolean actualResult = Validation.isValidPath(path);
+        assertEquals(false, actualResult);
+    }
+
+    @Test
     public void validationIsFieldNullOrEmptyWhenPathIsNull(){
         String path = null;
         boolean actualResult = Validation.isFieldNullOrEmpty(path);
