@@ -22,13 +22,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JSeparator;
 import javax.swing.border.Border;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import javax.imageio.ImageIO;
 
 /**
  * Class ResultsPanel is in charge of setting the table with files resultant
