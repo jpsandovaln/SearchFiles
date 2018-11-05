@@ -118,7 +118,7 @@ public class Controller {
             validFields = false;
         }
 
-        if (!Validation.isFieldNullOrEmpty(content)){
+        if (!Validation.isFieldNullOrEmpty(content)) {
             searchCriteria.setTextToSearch(content);
         }
 
