@@ -159,6 +159,7 @@ public class ParametersPanel extends JPanel implements ItemListener {
         c.gridy = 0;
         centerPanel.add(pathLabel, c);
         c.fill = GridBagConstraints.HORIZONTAL;
+        c.ipady = 8;
         c.gridwidth = 6;
         c.gridx = 1;
         c.gridy = 0;
@@ -177,7 +178,7 @@ public class ParametersPanel extends JPanel implements ItemListener {
         c.gridy = 1;
         centerPanel.add(nameLabel, c);
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.ipady = 4;
+        c.ipady = 8;
         c.gridwidth = 2;
         c.gridx = 1;
         c.gridy = 1;
@@ -188,7 +189,7 @@ public class ParametersPanel extends JPanel implements ItemListener {
         c.gridy = 1;
         centerPanel.add(extensionLabel, c);
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.ipady = 4;
+        c.ipady = 3;
         c.gridwidth = 1;
         c.gridx = 6;
         c.gridy = 1;
@@ -202,7 +203,7 @@ public class ParametersPanel extends JPanel implements ItemListener {
         c.gridy = 2;
         centerPanel.add(ownerLabel, c);
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.ipady = 4;
+        c.ipady = 8;
         c.gridwidth = 2;
         c.gridx = 1;
         c.gridy = 2;
@@ -213,7 +214,7 @@ public class ParametersPanel extends JPanel implements ItemListener {
         c.gridy = 2;
         centerPanel.add(contentLabel, c);
         c.fill = GridBagConstraints.HORIZONTAL;
-        c.ipady = 4;
+        c.ipady = 8;
         c.gridwidth = 2;
         c.gridx = 6;
         c.gridy = 2;
@@ -228,7 +229,7 @@ public class ParametersPanel extends JPanel implements ItemListener {
         centerPanel.add(sizeLabel, c);
         c.weightx = GridBagConstraints.HORIZONTAL;
         c.gridwidth = 1;
-        c.ipady = 4;
+        c.ipady = 3;
         c.gridx = 1;
         c.gridy = 3;
         centerPanel.add(sizeComparison, c);
@@ -240,7 +241,7 @@ public class ParametersPanel extends JPanel implements ItemListener {
         centerPanel.add(sizeInput, c);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridwidth = 1;
-        c.ipady = 4;
+        c.ipady = 3;
         c.gridx = 4;
         c.gridy = 3;
         centerPanel.add(sizeUnit, c);
@@ -304,15 +305,15 @@ public class ParametersPanel extends JPanel implements ItemListener {
         c.gridwidth = 1;
         c.gridx = 0;
         c.gridy = 7;
-        centerPanel.add(new JLabel("  "), c);
+        centerPanel.add(new JLabel(" "), c);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 2;
         c.gridy = 7;
-        centerPanel.add(new JLabel("  "), c);
+        centerPanel.add(new JLabel("                 "), c);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 3;
         c.gridy = 7;
-        centerPanel.add(new JLabel("          "), c);
+        centerPanel.add(new JLabel(" "), c);
         c.fill = GridBagConstraints.HORIZONTAL;
         c.gridx = 4;
         c.gridy = 7;
@@ -368,18 +369,30 @@ public class ParametersPanel extends JPanel implements ItemListener {
     public void initializeInputs(){
         //initializing the inputs, comboboxes and checkboxes
         nameInput = new JTextField();
-        String[] extensions = {"","exe", "png","mp3","pdf","mp4","jpg","txt","xls",
-                               "xlsx","sh","java","php","bat","avi"};
+        String[] extensions = {"","exe","png","mp3","pdf","mp4","jpg","txt","xls",
+                               "xlsx","sh","java","php","bat","avi","xml","json","doc","docx"};
         extensionInput = new JComboBox(extensions);
         sizeInput = new JTextField();
-        String[] comparisonSelection = {"", "<", ">","="};
+        String[] comparisonSelection = {"<", ">","="};
         sizeComparison = new JComboBox(comparisonSelection);
-        String[] units = {"", "MB", "GB","KB","byte"};
+        String[] units = {"MB","GB","KB","byte"};
         sizeUnit=new JComboBox(units);
         ownerInput = new JTextField();
         contentInput = new JTextField();
-        findButton = new JButton("Search");
-        cleanButton = new JButton("Clean");
+        try {
+            BufferedImage searchImage = ImageIO.read(new File("src/main/java/resources/search.png"));
+            BufferedImage cleanImage = ImageIO.read(new File("src/main/java/resources/clean.png"));
+            findButton = new JButton();
+            cleanButton = new JButton();
+            findButton.setIcon(new ImageIcon(searchImage));
+            cleanButton.setIcon(new ImageIcon(cleanImage));
+            findButton.setToolTipText("Search");
+            cleanButton.setToolTipText("Clean the Table Results");
+        }
+        catch(Exception exception){
+            System.out.println("Unable to open the pictures");
+        }
+
         hidden = new JCheckBox("Include Hidden Files");
         hidden.setMnemonic(KeyEvent.VK_D);
         hidden.setSelected(false);
@@ -389,13 +402,13 @@ public class ParametersPanel extends JPanel implements ItemListener {
         onlyFiles = new JCheckBox("Include Directories Only");
         onlyFiles.setMnemonic(KeyEvent.VK_D);
         onlyFiles.setSelected(false);
-        byCreationDate = new JCheckBox("Files created at");
+        byCreationDate = new JCheckBox("Files created at:");
         byCreationDate.setMnemonic(KeyEvent.VK_D);
         byCreationDate.setSelected(false);
-        byModificationDate = new JCheckBox("Files modified at");
+        byModificationDate = new JCheckBox("Files modified at:");
         byModificationDate.setMnemonic(KeyEvent.VK_D);
         byModificationDate.setSelected(false);
-        byLastDayAccessed = new JCheckBox("Files accessed at");
+        byLastDayAccessed = new JCheckBox("Files accessed at:");
         byLastDayAccessed.setMnemonic(KeyEvent.VK_D);
         byLastDayAccessed.setSelected(false);
 
