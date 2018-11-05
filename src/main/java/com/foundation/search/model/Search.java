@@ -91,7 +91,7 @@ public class Search implements ISearch{
                 results.add(createSearchResult(file.getParent(),name,extension,
                     size,!file.canWrite(), file.isHidden(), file.isDirectory(),
                     getCurrentOwner(file), getCreatedDate(file),
-                    getModifiedDate(file),getAccessedDate(file)));
+                    getModifiedDate(file), getAccessedDate(file)));
             }
         }
         return results;
@@ -167,7 +167,7 @@ public class Search implements ISearch{
      *                           evaluated according to the search criteria.
      * @return actualCreatedDate String value that contains the Created Date.
      */
-	private String getCreatedDate(File file) throws IOException{
+    private String getCreatedDate(File file) throws IOException{
         String actualCreatedDate="";
         try {
             BasicFileAttributes createdDate = java.nio.file.Files.
@@ -209,7 +209,7 @@ public class Search implements ISearch{
         return addFileToSearchResult;
     }
 
-	/**
+    /**
      * getModifiedDate method allows to obtain the Modified date.
      * @param file                Item (file or directory) that will be
      *                            evaluated according to the search criteria.
@@ -257,7 +257,7 @@ public class Search implements ISearch{
         return addFileToSearchResult;
     }
 
-	/**
+    /**
      * getAccessedDate method allows to obtain the Accessed date.
      * @param file                Item (file or directory) that will be
      *                            evaluated according to the search criteria.
