@@ -16,12 +16,10 @@ import com.foundation.search.controller.Controller;
 
 public class Main {
     public static void main(String [] args) {
-        System.out.println("This is the main class");
         Init();
     }
 
     public static void Init() {
-        System.out.println("Controller Init");
         Controller controller = new Controller();
     }
 }
