@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+ * $Revision$
+ *
+ * Copyright (c) 2014 by PROS, Inc.  All Rights Reserved.
+ * This software is the confidential and proprietary information of
+ * PROS, Inc ("Confidential Information").
+ * You shall not disclose such Confidential Information and shall use it
+ * only in accordance with the terms of the license agreement you entered
+ * into with PROS. 
+-->
+<!-- This file contains the task to transition opportunities of a certain type to another stage -->
+
+ahi
+
+<!DOCTYPE IMConfiguration SYSTEM "../../pros.dtd">
+
+<IMConfiguration name="SOStandardDataInterface" format="1.2">
+
+  <!-- Declare all the property strings -->    
+  <StringTable term="&sep;">
+    <String key="$MASS_TRANSITION_OPPORTUNITIES_RULE_PROPS_1" type="Properties">
+      <Property key="RULESET">TransitionRuleSet</Property>
+      <Property key="PLAN">MassTransitionOpportunitiesPlan</Property>
+    </String>
+    <String key="$MASS_TRANSITION_OPPORTUNITIES_RULE_EXT_PROPS_1" type="Properties">
+      <Property key="AccountType">National Accounts</Property>
+      <Property key="OpportunityType">Spot Deals</Property>
+      <Property key="TransitionFromStageList">Created</Property>
+      <Property key="TransitionToStage">Approved</Property>
+      <Property key="TransitionValidation">Yes</Property>
+    </String>
+  </StringTable>
+
+  <StringTable term="&sep;">
+    <String key="$MASS_TRANSITION_OPPORTUNITIES_RULE_PROPS_2" type="Properties">
+      <Property key="RULESET">TransitionRuleSet</Property>
+      <Property key="PLAN">MassTransitionOpportunitiesPlan</Property>
+    </String>
+    <String key="$MASS_TRANSITION_OPPORTUNITIES_RULE_EXT_PROPS_2" type="Properties">
+      <Property key="AccountType">National Accounts</Property>
+      <Property key="OpportunityType">contract opp type</Property>
+      <Property key="TransitionFromStageList">Created</Property>
+      <Property key="TransitionToStage">Published</Property>
+      <Property key="TransitionValidation">No</Property>
+    </String>
+	
+    <String key="$MASS_WORKFLOW_BY_AGREEMENT_RULE_PROPS" type="Properties">
+      <Property key="RULESET">TransitionRuleSet</Property>
+      <Property key="PLAN">MassWorkflowByAgreementPlan</Property>
+    </String>
+
+    <String key="$MASS_WORKFLOW_BY_AGREEMENT_RULE_EXT_PROPS" type="Properties">
+      <Property key="AccountType">National Accounts</Property>
+      <Property key="OpportunityType">contract opp type</Property>
+      <Property key="TransitionToStage">Published</Property>
+      <Property key="AgreementIdSql">SELECT AGREEMENT_ID FROM RO_PROGRAM_AGREEMENT WHERE ID = 503</Property>
+    </String>
+	
+  </StringTable>
+
+  <!-- - - - - - - - - - - - - - - -->
+  <!-- ************************* - -->
+  <!--    TASKS START FROM HERE.   -->
+  <!-- ************************* - -->
+  <!-- -  - - - - - - - - - - - -  -->
+
+  <!-- Task to auto-amend, evaluate, and transition opportunities by agreement id -->
+    <Task id="MassTransitionOpportunities">
+    <Wrapper type="com.prosrm.taskmanager.taskwrappers.RuleProcessorTaskWrapper"
+             servers="&total_servers;" threadsPerServer="&threadsperserver;" debug="false" queueLimit="&queuelimit;">
+      <Input iName="RuleProcessorProperties">$MASS_TRANSITION_OPPORTUNITIES_RULE_PROPS_2</Input>
+      <Input iName="RuleProcessorPropertiesExternal">$MASS_TRANSITION_OPPORTUNITIES_RULE_EXT_PROPS_2</Input>
+    </Wrapper>
+    <Wrapper type="com.prosrm.taskmanager.taskwrappers.RuleProcessorTaskWrapper"
+             servers="&total_servers;" threadsPerServer="&threadsperserver;" debug="false" queueLimit="&queuelimit;">
+      <Input iName="RuleProcessorProperties">$MASS_TRANSITION_OPPORTUNITIES_RULE_PROPS_1</Input>
+      <Input iName="RuleProcessorPropertiesExternal">$MASS_TRANSITION_OPPORTUNITIES_RULE_EXT_PROPS_1</Input>
+    </Wrapper>
+    </Task>
+	
+	<Task id="MassWorkflowByAgreement">
+    <Wrapper type="com.prosrm.taskmanager.taskwrappers.RuleProcessorTaskWrapper"
+             servers="&total_servers;" threadsPerServer="&threadsperserver;" debug="false" queueLimit="&queuelimit;">
+      <Input iName="RuleProcessorProperties">$MASS_WORKFLOW_BY_AGREEMENT_RULE_PROPS</Input>
+      <Input iName="RuleProcessorPropertiesExternal">$MASS_WORKFLOW_BY_AGREEMENT_RULE_EXT_PROPS</Input>
+    </Wrapper>
+	</Task>
+
+</IMConfiguration>
