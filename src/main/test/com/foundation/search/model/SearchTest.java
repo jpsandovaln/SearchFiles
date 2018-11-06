@@ -31,10 +31,10 @@ public class SearchTest {
         int actualCount;
         int expectedCount;
 
-        List<Asset> searchResultList = new ArrayList();
+        List<Asset> searchResultList;
         Search search = new Search();
         Criteria criteria = new Criteria();
-        criteria.setPath(System.getProperty("user.dir") + "/test/com/foundation/search/model/files");
+        criteria.setPath(System.getProperty("user.dir") + "/src/main/test/com/foundation/search/model/files");
         criteria.setFileName("  ");
         searchResultList = search.searchFiles(criteria);
         actualCount = 0;
@@ -49,10 +49,10 @@ public class SearchTest {
         int actualCount;
         int expectedCount;
 
-        List<Asset> searchResultList = new ArrayList();
+        List<Asset> searchResultList;
         Search search = new Search();
         Criteria criteria = new Criteria();
-        criteria.setPath(System.getProperty("user.dir") + "/test/com/foundation/search/model/files");
+        criteria.setPath(System.getProperty("user.dir") + "/src/main/test/com/foundation/search/model/files");
         criteria.setFileName("");
         searchResultList = search.searchFiles(criteria);
         actualCount = 0;
@@ -67,10 +67,10 @@ public class SearchTest {
         int actualCount;
         int expectedCount;
 
-        List<Asset> searchResultList = new ArrayList();
+        List<Asset> searchResultList;
         Search search = new Search();
         Criteria criteria = new Criteria();
-        criteria.setPath(System.getProperty("user.dir") + "/test/com/foundation/search/model/files");
+        criteria.setPath(System.getProperty("user.dir") + "/src/main/test/com/foundation/search/model/files");
         criteria.setOwner("testUser");
         searchResultList = search.searchFiles(criteria);
         actualCount = 0;
@@ -85,12 +85,12 @@ public class SearchTest {
         int actualCount;
         int expectedCount;
 
-        List<Asset> searchResultList = new ArrayList();
+        List<Asset> searchResultList;
         String expectedExtension;
         String actualExtension;
         Search search = new Search();
         Criteria criteria = new Criteria();
-        criteria.setPath(System.getProperty("user.dir") + "/test/com/foundation/search/model/files");
+        criteria.setPath(System.getProperty("user.dir") + "/src/main/test/com/foundation/search/model/files");
         criteria.setFileExtension("a");
         searchResultList = search.searchFiles(criteria);
         actualCount = 0;
@@ -105,12 +105,12 @@ public class SearchTest {
         int actualCount;
         int expectedCount;
 
-        List<Asset> searchResultList = new ArrayList();
+        List<Asset> searchResultList;
         String expectedExtension;
         String actualExtension;
         Search search = new Search();
         Criteria criteria = new Criteria();
-        criteria.setPath(System.getProperty("user.dir") + "/test/com/foundation/search/model/files");
+        criteria.setPath(System.getProperty("user.dir") + "/src/main/test/com/foundation/search/model/files");
         criteria.setFileExtension("abcdefg");
         searchResultList = search.searchFiles(criteria);
         actualCount = 0;
@@ -125,7 +125,7 @@ public class SearchTest {
         int actualCount;
         int expectedCount;
 
-        List<Asset> searchResultList = new ArrayList();
+        List<Asset> searchResultList;
         Search search = new Search();
         Criteria criteria = new Criteria();
         criteria.setTextToSearch("hi");
@@ -143,10 +143,10 @@ public class SearchTest {
         int actualCount;
         int expectedCount;
 
-        List<Asset> searchResultList = new ArrayList();
+        List<Asset> searchResultList;
         Search search = new Search();
         Criteria criteria = new Criteria();
-        criteria.setPath(System.getProperty("user.dir") + "/test/com/foundation/search/model/files");
+        criteria.setPath(System.getProperty("user.dir") + "/src/main/test/com/foundation/search/model/files");
         criteria.setTextToSearch("hi");
         searchResultList = search.searchFiles(criteria);
         actualCount = 6;
@@ -161,10 +161,10 @@ public class SearchTest {
         int actualCount;
         int expectedCount;
 
-        List<Asset> searchResultList = new ArrayList();
+        List<Asset> searchResultList;
         Search search = new Search();
         Criteria criteria = new Criteria();
-        criteria.setPath(System.getProperty("user.dir") + "/test/com/foundation/search/model/files");
+        criteria.setPath(System.getProperty("user.dir") + "/src/main/test/com/foundation/search/model/files");
         criteria.setAccessedDateOption(true);
         criteria.setAccessedDate("20181104");
         searchResultList = search.searchFiles(criteria);
@@ -180,10 +180,10 @@ public class SearchTest {
         int actualCount;
         int expectedCount;
 
-        List<Asset> searchResultList = new ArrayList();
+        List<Asset> searchResultList;
         Search search = new Search();
         Criteria criteria = new Criteria();
-        criteria.setPath(System.getProperty("user.dir") + "/test/com/foundation/search/model/files");
+        criteria.setPath(System.getProperty("user.dir") + "/src/main/test/com/foundation/search/model/files");
         criteria.setModifiedDate("20181014");
         criteria.setModifiedDateOption(true);
         searchResultList = search.searchFiles(criteria);
@@ -199,10 +199,10 @@ public class SearchTest {
         int actualCount;
         int expectedCount;
 
-        List<Asset> searchResultList = new ArrayList();
+        List<Asset> searchResultList;
         Search search = new Search();
         Criteria criteria = new Criteria();
-        criteria.setPath(System.getProperty("user.dir") + "/test/com/foundation/search/model/files");
+        criteria.setPath(System.getProperty("user.dir") + "/src/main/test/com/foundation/search/model/files");
         criteria.setCreatedDate("20181104");
         criteria.setCreatedDateOption(true);
         searchResultList = search.searchFiles(criteria);
@@ -218,10 +218,10 @@ public class SearchTest {
         int actualCount;
         int expectedCount;
 
-        List<Asset> searchResultList = new ArrayList();
+        List<Asset> searchResultList;
         Search search = new Search();
         Criteria criteria = new Criteria();
-        criteria.setPath(System.getProperty("user.dir") + "/test/com/foundation/search/model/files");
+        criteria.setPath(System.getProperty("user.dir") + "/src/main/test/com/foundation/search/model/files");
         criteria.setOwner("JALASOFT\\Shirley Soto");
         searchResultList = search.searchFiles(criteria);
         actualCount = 17;
@@ -236,10 +236,10 @@ public class SearchTest {
         int actualCount;
         int expectedCount;
 
-        List<Asset> searchResultList = new ArrayList();
+        List<Asset> searchResultList;
         Search search = new Search();
         Criteria criteria = new Criteria();
-        criteria.setPath(System.getProperty("user.dir") + "/test/com/foundation/search/model/files");
+        criteria.setPath(System.getProperty("user.dir") + "/src/main/test/com/foundation/search/model/files");
         criteria.setIsDirectory(true);
         searchResultList = search.searchFiles(criteria);
         actualCount = 7;
@@ -254,10 +254,10 @@ public class SearchTest {
         int actualCount;
         int expectedCount;
 
-        List<Asset> searchResultList = new ArrayList();
+        List<Asset> searchResultList;
         Search search = new Search();
         Criteria criteria = new Criteria();
-        criteria.setPath(System.getProperty("user.dir") + "/test/com/foundation/search/model/files");
+        criteria.setPath(System.getProperty("user.dir") + "/src/main/test/com/foundation/search/model/files");
         criteria.setIsDirectory(false);
         searchResultList = search.searchFiles(criteria);
         actualCount = 17;
@@ -272,10 +272,10 @@ public class SearchTest {
         int actualCount;
         int expectedCount;
 
-        List<Asset> searchResultList = new ArrayList();
+        List<Asset> searchResultList;
         Search search = new Search();
         Criteria criteria = new Criteria();
-        criteria.setPath(System.getProperty("user.dir") + "/test/com/foundation/search/model/files");
+        criteria.setPath(System.getProperty("user.dir") + "/src/main/test/com/foundation/search/model/files");
         criteria.setHidden(true);
         searchResultList = search.searchFiles(criteria);
         actualCount = 2;
@@ -290,10 +290,10 @@ public class SearchTest {
         int actualCount;
         int expectedCount;
 
-        List<Asset> searchResultList = new ArrayList();
+        List<Asset> searchResultList;
         Search search = new Search();
         Criteria criteria = new Criteria();
-        criteria.setPath(System.getProperty("user.dir") + "/test/com/foundation/search/model/files");
+        criteria.setPath(System.getProperty("user.dir") + "/src/main/test/com/foundation/search/model/files");
         criteria.setHidden(false);
         searchResultList = search.searchFiles(criteria);
         actualCount = 17;
@@ -308,10 +308,10 @@ public class SearchTest {
         int actualCount;
         int expectedCount;
 
-        List<Asset> searchResultList = new ArrayList();
+        List<Asset> searchResultList;
         Search search = new Search();
         Criteria criteria = new Criteria();
-        criteria.setPath(System.getProperty("user.dir") + "/test/com/foundation/search/model/files");
+        criteria.setPath(System.getProperty("user.dir") + "/src/main/test/com/foundation/search/model/files");
         criteria.setReadOnly(true);
         searchResultList = search.searchFiles(criteria);
         actualCount = 1;
@@ -326,10 +326,10 @@ public class SearchTest {
         int actualCount;
         int expectedCount;
 
-        List<Asset> searchResultList = new ArrayList();
+        List<Asset> searchResultList;
         Search search = new Search();
         Criteria criteria = new Criteria();
-        criteria.setPath(System.getProperty("user.dir") + "/test/com/foundation/search/model/files");
+        criteria.setPath(System.getProperty("user.dir") + "/src/main/test/com/foundation/search/model/files");
         criteria.setReadOnly(false);
         searchResultList = search.searchFiles(criteria);
         actualCount = 17;
@@ -344,10 +344,10 @@ public class SearchTest {
         int actualCount;
         int expectedCount;
 
-        List<Asset> searchResultList = new ArrayList();
+        List<Asset> searchResultList;
         Search search = new Search();
         Criteria criteria = new Criteria();
-        criteria.setPath(System.getProperty("user.dir") + "/test/com/foundation/search/model/files");
+        criteria.setPath(System.getProperty("user.dir") + "/src/main/test/com/foundation/search/model/files");
         criteria.setFileName("file2");
         searchResultList = search.searchFiles(criteria);
         actualCount = 2;
@@ -362,10 +362,10 @@ public class SearchTest {
         int actualCount;
         int expectedCount;
 
-        List<Asset> searchResultList = new ArrayList();
+        List<Asset> searchResultList;
         Search search = new Search();
         Criteria criteria = new Criteria();
-        criteria.setPath(System.getProperty("user.dir") + "/test/com/foundation/search/model/files");
+        criteria.setPath(System.getProperty("user.dir") + "/src/main/test/com/foundation/search/model/files");
         searchResultList = search.searchFiles(criteria);
         actualCount = 17;
         expectedCount = searchResultList.size();
@@ -379,10 +379,10 @@ public class SearchTest {
         int actualCount;
         int expectedCount;
 
-        List<Asset> searchResultList = new ArrayList();
+        List<Asset> searchResultList;
         Search search = new Search();
         Criteria criteria = new Criteria();
-        criteria.setPath(System.getProperty("user.dir") + "/test/com/foundation/search/model/files");
+        criteria.setPath(System.getProperty("user.dir") + "/src/main/test/com/foundation/search/model/files");
         criteria.setFileExtension("txt");
         searchResultList = search.searchFiles(criteria);
         actualCount = 4;
@@ -397,12 +397,12 @@ public class SearchTest {
         int actualCount;
         int expectedCount;
 
-        List<Asset> searchResultList = new ArrayList();
+        List<Asset> searchResultList;
         String expectedExtension;
         String actualExtension;
         Search search = new Search();
         Criteria criteria = new Criteria();
-        criteria.setPath(System.getProperty("user.dir") + "/test/com/foundation/search/model/files");
+        criteria.setPath(System.getProperty("user.dir") + "/src/main/test/com/foundation/search/model/files");
         criteria.setFileExtension("xlsx");
         searchResultList = search.searchFiles(criteria);
         actualCount = 1;
@@ -417,10 +417,10 @@ public class SearchTest {
         int actualCount;
         int expectedCount;
 
-        List<Asset> searchResultList = new ArrayList();
+        List<Asset> searchResultList;
         Search search = new Search();
         Criteria criteria = new Criteria();
-        criteria.setPath(System.getProperty("user.dir") + "/test/com/foundation/search/model/files");
+        criteria.setPath(System.getProperty("user.dir") + "/src/main/test/com/foundation/search/model/files");
         criteria.setFileName("file2");
         criteria.setFileExtension("txt");
         searchResultList = search.searchFiles(criteria);
@@ -431,6 +431,3 @@ public class SearchTest {
         assertEquals(actualCount, expectedCount);
     }
 }
-
-
-
