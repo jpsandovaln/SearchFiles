@@ -1,0 +1,23 @@
+{
+   "task_cpus": ${EREMETIC_CPUS},
+   "task_mem": ${EREMETIC_MEMORY},
+   "docker_image": "docker.pros.com/ag/agreement-service:${TAG_VERSION}",
+   "force_pull_image": true,
+   "command": "java -jar /opt/agreement/agreement-service-all.jar ${EREMETIC_COMMAND} /opt/agreement/config.yml",
+   "env": {
+      "DB_USER": "${ADMIN_DB_USER}",
+      "DB_URL": "${DB_URL}",
+      "HIERARCHICAL_VALUE_SERVICE_BASE_URL": "${HIERARCHICAL_VALUE_SERVICE_BASE_URL}",
+      "HOST": "Eremetic",
+      "MESOS_TASK_ID": "agreement-upgrade"
+   },
+   "masked_env": {
+      "DB_PASSWORD": "${ADMIN_DB_PASSWORD}"
+   },
+   "slave_constraints": [
+      {
+         "attribute_name": "service",
+         "attribute_value": "common"
+      }
+   ] hi
+}
