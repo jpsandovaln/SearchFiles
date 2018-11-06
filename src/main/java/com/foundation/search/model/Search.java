@@ -25,6 +25,8 @@ import org.apache.commons.io.FileUtils;
 import java.io.IOException;
 import java.util.Date;
 import java.text.SimpleDateFormat;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * This class contains the methods to perform the search of files and directories
@@ -33,7 +35,8 @@ import java.text.SimpleDateFormat;
  * @author Shirley Soto
  * @version 1.0.
  */
-public class Search {
+public class Search implements ISearch{
+    private Logger logger = Logger.getAnonymousLogger();
 
     /**
      * searchFiles method performs a search of files and directories by
@@ -49,9 +52,9 @@ public class Search {
      *                 all the search criteria is defined.
      * @return results List of Objects that contains the search results.
      */
-    public List<SearchResult> searchFiles(Criteria criteria){
+    public List<Asset> searchFiles(Criteria criteria) throws IOException{
         File directory = new File(criteria.getPath());
-        List<SearchResult> results = new ArrayList<>();
+        List<Asset> results = new ArrayList<>();
 
         for (File file : Files.fileTraverser().breadthFirst(directory)) {
             //Boolean to identify if the file will be returned as a result
@@ -87,8 +90,8 @@ public class Search {
                 }
                 results.add(createSearchResult(file.getParent(),name,extension,
                     size,!file.canWrite(), file.isHidden(), file.isDirectory(),
-                    getCurrentOwner(file), criteria.getCreatedDate(),
-                    criteria.getModifiedDate(),criteria.getAccessedDate()));
+                    getCurrentOwner(file), getCreatedDate(file),
+                    getModifiedDate(file), getAccessedDate(file)));
             }
         }
         return results;
@@ -114,9 +117,15 @@ public class Search {
             try {
                 content = new String (java.nio.file.Files.readAllBytes(Paths.get(file.getPath())));
                 addFileToSearchResult = content.contains(textToSearch);
-            }
-            catch (IOException e) {
-                e.printStackTrace();
+            } catch (IOException e) {
+                logger.log(Level.WARNING, file.getName() + " file could not be read");
+            } catch (OutOfMemoryError e) {
+                logger.log(Level.SEVERE, file.getName() + " file cannot be allocated to be read. " +
+                    "File is bigger than 1GB");
+            } catch (SecurityException e) {
+                logger.log(Level.WARNING, file.getName() + " file doesn't have read access");
+            } catch (Exception e) {
+                logger.log(Level.WARNING, "Unexpected error has occurred with " + file.getName());
             }
         }
         return addFileToSearchResult;
@@ -135,24 +144,40 @@ public class Search {
      *                               results.
      */
     private boolean filterByCreatedDate(File file, boolean isCreatedDateSelected,
-                                        String expectedCreatedDate){
+                                        String expectedCreatedDate) throws IOException{
         boolean addFileToSearchResult = false;
         String actualCreatedDate;
 
         if (isCreatedDateSelected == false) {
             addFileToSearchResult = true;
         } else {
-            try {
-                BasicFileAttributes createdDate = java.nio.file.Files.
-                    readAttributes(file.toPath(), BasicFileAttributes.class);
-                FileTime time = createdDate.creationTime();
-                actualCreatedDate = convertDateToString(time);
+            try{
+                actualCreatedDate = getCreatedDate(file);
                 addFileToSearchResult = actualCreatedDate.equals(expectedCreatedDate);
-            } catch (IOException e) {
-                e.getMessage();
+            } catch (IOException e){
+                throw e;
             }
         }
         return addFileToSearchResult;
+    }
+
+    /**
+     * getCreatedDate method allows to obtain the created date.
+     * @param file               Item (file or directory) that will be
+     *                           evaluated according to the search criteria.
+     * @return actualCreatedDate String value that contains the Created Date.
+     */
+    private String getCreatedDate(File file) throws IOException{
+        String actualCreatedDate="";
+        try {
+            BasicFileAttributes createdDate = java.nio.file.Files.
+                readAttributes(file.toPath(), BasicFileAttributes.class);
+            FileTime time = createdDate.creationTime();
+            actualCreatedDate = convertDateToString(time);
+        } catch (IOException e) {
+            throw new IOException("Create date could not be retrieved");
+        }
+        return actualCreatedDate;
     }
 
     /**
@@ -167,7 +192,7 @@ public class Search {
      *                               results.
      */
     private boolean filterByModifiedDate(File file, boolean isModifiedDateSelected,
-                                         String expectedModifiedDate){
+                                         String expectedModifiedDate)throws IOException{
         boolean addFileToSearchResult = false;
         String actualModifiedDate;
 
@@ -175,16 +200,32 @@ public class Search {
             addFileToSearchResult = true;
         } else {
             try {
-                BasicFileAttributes modifiedDate = java.nio.file.Files.readAttributes(file.toPath(),
-                    BasicFileAttributes.class);
-                FileTime time = modifiedDate.lastModifiedTime();
-                actualModifiedDate = convertDateToString(time);
+                actualModifiedDate = getModifiedDate(file);
                 addFileToSearchResult = actualModifiedDate.equals(expectedModifiedDate);
-            } catch (IOException e) {
-                e.getMessage();
+            } catch (IOException e){
+                throw e;
             }
         }
         return addFileToSearchResult;
+    }
+
+    /**
+     * getModifiedDate method allows to obtain the Modified date.
+     * @param file                Item (file or directory) that will be
+     *                            evaluated according to the search criteria.
+     * @return actualModifiedDate String value that contains the Created Date.
+     */
+    private String getModifiedDate(File file) throws IOException{
+        String actualModifiedDate="";
+        try {
+            BasicFileAttributes modifiedDate = java.nio.file.Files.readAttributes(file.toPath(),
+                    BasicFileAttributes.class);
+            FileTime time = modifiedDate.lastModifiedTime();
+            actualModifiedDate = convertDateToString(time);
+        } catch (IOException e) {
+            throw new IOException("Modified date could not be retrieved");
+        }
+        return actualModifiedDate;
     }
 
     /**
@@ -199,7 +240,7 @@ public class Search {
      *                               results.
      */
     private boolean filterByAccessedDate(File file, boolean isAccessedDateSelected,
-                                         String expectedAccessedDate){
+                                         String expectedAccessedDate) throws IOException{
         boolean addFileToSearchResult = false;
         String actualAccessedDate;
 
@@ -207,16 +248,32 @@ public class Search {
             addFileToSearchResult = true;
         } else {
             try {
-                BasicFileAttributes accessedDate = java.nio.file.Files.readAttributes(file.toPath(),
-                        BasicFileAttributes.class);
-                FileTime time = accessedDate.lastAccessTime();
-                actualAccessedDate = convertDateToString(time);
+                actualAccessedDate = getAccessedDate(file);
                 addFileToSearchResult = actualAccessedDate.equals(expectedAccessedDate);
-            } catch (IOException e) {
-                e.getMessage();
+            } catch (IOException e){
+                throw e;
             }
         }
         return addFileToSearchResult;
+    }
+
+    /**
+     * getAccessedDate method allows to obtain the Accessed date.
+     * @param file                Item (file or directory) that will be
+     *                            evaluated according to the search criteria.
+     * @return actualAccessedDate String value that contains the Created Date.
+     */
+    private String getAccessedDate(File file) throws IOException{
+        String actualAccessedDate="";
+        try {
+            BasicFileAttributes accessedDate = java.nio.file.Files.readAttributes(file.toPath(),
+                    BasicFileAttributes.class);
+            FileTime time = accessedDate.lastAccessTime();
+            actualAccessedDate = convertDateToString(time);
+        } catch (IOException e) {
+            throw new IOException("Accessed date could not be retrieved");
+        }
+        return actualAccessedDate;
     }
 
     /**
@@ -244,15 +301,19 @@ public class Search {
      *                               the file/directory is added to the list of
      *                               results.
      */
-    private boolean filterByOwner(File file, String owner){
+    private boolean filterByOwner(File file, String owner) throws IOException{
         boolean addFileToSearchResult = false;
         String currentOwner;
 
         if (owner == null) {
             addFileToSearchResult = true;
         } else {
-            currentOwner = getCurrentOwner(file);
-            addFileToSearchResult = currentOwner.equals(owner);
+            try{
+                currentOwner = getCurrentOwner(file);
+                addFileToSearchResult = currentOwner.equals(owner);
+            } catch (IOException e){
+                throw e;
+            }
         }
         return addFileToSearchResult;
     }
@@ -264,7 +325,7 @@ public class Search {
      * @return owner String value that contains the owner name to be used as search
      *               criteria.
      */
-    private String getCurrentOwner(File file){
+    private String getCurrentOwner(File file) throws IOException{
         String owner = null;
 
         try{
@@ -273,9 +334,8 @@ public class Search {
                 FileOwnerAttributeView.class);
             UserPrincipal fileOwner = ownerInfo.getOwner();
             owner = fileOwner.getName();
-        }
-        catch (Exception e){
-            System.out.println(e);
+        } catch (IOException e){
+            throw new IOException("Owner could not be retrieved");
         }
         return owner;
     }
