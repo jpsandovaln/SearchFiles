@@ -41,7 +41,7 @@ public class SearchTest {
         expectedCount = searchResultList.size();
         System.out.println("Actual count: " + actualCount);
         System.out.println("Expected count: " + expectedCount);
-        assertEquals(actualCount,expectedCount);
+        assertEquals(actualCount, expectedCount);
     }
 
     @Test
